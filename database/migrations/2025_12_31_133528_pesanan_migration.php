@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pesanan',function(Blueprint $table){
-            $table->string('ID_PESANAN')->primary();
-            $table->biginteger('ID_PELANGGAN');
-            $table->foreign('ID_PELANGGAN')->reference('ID_PELANGGAN')->on('Pelanggan');
+            $table->string('NO_PESANAN')->primary();
+            $table->unsignedbigInteger('ID_PELANGGAN');
+            $table->foreign('ID_PELANGGAN')->references('ID_PELANGGAN')->on('pelanggan');
             $table->unsignedinteger('harga');
             $table->date('tanggal_pesanan')->use_current();
             $table->text('catatan');

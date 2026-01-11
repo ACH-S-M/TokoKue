@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'pelanggan',
         'passwords' => 'users',
     ],
 
@@ -36,10 +36,11 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'pelanggan' => [
             'driver' => 'session',
-            'provider' => 'users',
-        ],
+            'provider' => 'pelanggan',
+
+        ]
     ],
 
     /*
@@ -60,15 +61,10 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'pelanggan' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\PelangganModel::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

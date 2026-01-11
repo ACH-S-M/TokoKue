@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController as Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 });
+Route::get('/daftar', function () {
+    return view('daftar');
+})->name('daftar');
+Route::get('/masuk', function () {
+    return view('masuk');
+})->name('login');
+Route::post('/daftar', [Auth::class,'Register'])->name('daftar.post');

@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_pesanan',function(Blueprint $table) {
-            $table->unsignedinteger('KD_KUE');
+            $table->unsignedbigInteger('KD_KUE');
             $table->string('NO_PESANAN');
             $table->integer('jumlah');
             $table->foreign('KD_KUE')->references('KD_KUE')->on('kue');
