@@ -16,16 +16,15 @@
 <body class="antialiased">
 
     {{-- Gunakan ini kalo misalkan ga ada authentikasi  --}}
-   @guest
+   @guest('pelanggan')
         <div class="flex w-full bg-red-600 p-5 gap-4 ">
-        <a href={{ route(name: 'masuk') }} class="bg-green-400 p-2 rounded-md "> Masuk </a>
+        <a href={{ route(name: 'login') }} class="bg-green-400 p-2 rounded-md "> Masuk </a>
         <a href={{ route('daftar') }} class="bg-blue-400 p-2 rounded-md "> Daftar </a>
     </div>
    @endguest
 
-    @auth
+    @auth('pelanggan')
       <h1 class="Text-3xl ">Selamat datang user </h1>
-
 
     @endauth
 </body>

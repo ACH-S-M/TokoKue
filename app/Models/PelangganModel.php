@@ -14,12 +14,17 @@ class PelangganModel extends Authenticatable
         'email_pelanggan',
         'alamat_pelanggan',
         'telepon_pelanggan',
-        'password_pelanggan',
+        'password',
     ];
     
     protected $hidden = [
-        'password_pelanggan'
+        'password'
     ];
+    public function getAuthIdentifierName()
+{
+    return 'email_pelanggan';
+}
+
 
     use HasFactory;
 

@@ -34,9 +34,9 @@
             <input type="text" name="alamat_pelanggan" placeholder="Alamat"
                 class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
 
-            <input type="password" name="password_pelanggan" placeholder="Password"
+            <input type="password" name="password" placeholder="Password"
                 class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
-             @error('password_pelanggan')
+             @error('password')
                 <p class="text-sm text-red-600 mt-1">{{ $message  }} Gunakan Huruf besar, kecil dan juga angka </p>
             @enderror
             <button type="submit"
@@ -44,6 +44,7 @@
                 Kirim
             </button>
         </form>
+        <h1 class="text-center">Sudah Punya akun ?<a href={{ route('login') }} class="font-bold text-emerald-400">Daftar disini</a> </h1>
     </main>
 
 </body>

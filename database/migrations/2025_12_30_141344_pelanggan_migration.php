@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email_pelanggan')->unique();
             $table->string('alamat_pelanggan');
             $table->string('telepon_pelanggan');
-            $table->string('password_pelanggan');
+            $table->string('password');
         });
     }
     
