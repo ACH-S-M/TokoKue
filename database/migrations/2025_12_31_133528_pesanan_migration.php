@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('NO_PESANAN')->primary();
             $table->unsignedbigInteger('ID_PELANGGAN');
             $table->foreign('ID_PELANGGAN')->references('ID_PELANGGAN')->on('pelanggan');
-            $table->unsignedinteger('harga');
+            $table->unsignedinteger('total_harga');
             $table->date('tanggal_pesanan')->use_current();
             $table->text('catatan');
         });

@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id('KD_KUE');
             $table->string('nama_kue');
             $table->text('deskripsi_kue');
-            $table->decimal('harga_kue', 8, 2);
-            $table->integer('stok_kue');
             $table->text('gambar_kue')->nullable();
         });
     }

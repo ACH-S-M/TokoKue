@@ -13,18 +13,19 @@ use App\Http\Controllers\AuthController as Auth;
 |
 */
 
+// Halaman publik
 Route::get('/', function () {
-    return view('layouts.dashboard');
+    return view('Layouts.dashboard');
 })->name('home');
-Route::get('/daftar', function () {
-    return view('daftar');
-})->name('daftar');
-Route::get('/masuk', function () {
-    return view('masuk');
-})->name('login');
-Route::get('/beda', function () {
-    return view('layouts.nexpage');
-})->name('nextpage');
 
-Route::post('/daftar', [Auth::class,'Register'])->name('daftar.post');
-Route::post('/masuk',[Auth::class,'Login'])->name('login.post');
+// Group route auth
+Route::prefix('auth')->group(function () {
+    // Menampilkan form
+    Route::get('/daftar', function () { return view('daftar'); })->name('daftar');
+    Route::get('/masuk', function () { return view('masuk'); })->name('login');
+
+    // Proses form
+    Route::post('/daftar', [Auth::class, 'Register'])->name('daftar.post');
+    Route::post('/masuk', [Auth::class, 'Login'])->name('login.post');
+});
+include 'admin.php';
