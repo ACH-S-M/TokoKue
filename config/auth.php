@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'pelanggan',
 
+        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
         ]
     ],
 
@@ -65,6 +69,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\PelangganModel::class,
         ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\AdminModel::class,
+        ]
     ],
 
     /*
