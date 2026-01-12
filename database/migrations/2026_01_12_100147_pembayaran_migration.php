@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string("NO_PESANAN");
             $table->enum('status',['Belum dibayar','Dibayar','Dikembalikan']);
             $table->timestamp('tanggal_pembayaran',2)->useCurrent();
+            $table->foreign('NO_PESANAN')->references('NO_PESANAN')->on('pesanan')->cascadeOnDelete();
         });
     }
 
