@@ -8,5 +8,10 @@
 </head>
 <body>
     <h1>Ini Admin </h1>
+    <form action={{ route('admin.logout') }} method="post">
+        @csrf
+        <button class="p-2 bg-red text-white font-bold ">Logout</button>
+    </form>
+    <h1>{{ auth('admin')->user()->nama_admin}}</h1>
 </body>
 </html>

@@ -24,4 +24,8 @@ class AdminController extends Controller
             'email' => 'Email atau password salah'
         ]);
     }
+    function Logout() {
+         Auth::guard('admin')->logout();
+         return redirect()->route('admin.login');
+    }
 }

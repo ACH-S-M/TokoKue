@@ -30,16 +30,13 @@
                 <span class="text-gray-700">
                     Halo, <span class="font-semibold">{{ auth('pelanggan')->user()->nama_pelanggan }}</span>
                 </span>
-
-
-                {{-- <form action="{{ route('logout') }}" method="post">
-                    @csrf --}}
+                <form action="{{ route('pelanggan.logout') }}" method="post">
+                 @csrf 
                 <button
-                    class="px-4 py-2 rounded-lg bg-red-600 text-white
-                               hover:bg-red-700 transition">
+                    class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">
                     Logout
                 </button>
-                {{-- </form> --}}
+                </form>
             </div>
         @endauth
 

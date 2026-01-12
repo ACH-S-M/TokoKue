@@ -22,10 +22,11 @@ Route::get('/', function () {
 Route::prefix('auth')->group(function () {
     // Menampilkan form
     Route::get('/daftar', function () { return view('daftar'); })->name('daftar');
-    Route::get('/masuk', function () { return view('masuk'); })->name('login');
+    Route::get('/login', function () { return view('masuk'); })->name('login');
 
     // Proses form
     Route::post('/daftar', [Auth::class, 'Register'])->name('daftar.post');
-    Route::post('/masuk', [Auth::class, 'Login'])->name('login.post');
+    Route::post('/login', [Auth::class, 'Login'])->name('login.post');
+    Route::post('/logout', [Auth::class,'Logout'])->name('pelanggan.logout');
 });
 include 'admin.php';

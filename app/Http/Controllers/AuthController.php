@@ -11,6 +11,7 @@ class AuthController extends Controller
 {
     function Register(Request $request)
     {
+
         $validate = $request->validate([
             'nama_pelanggan' => [
                 'required',
@@ -40,7 +41,6 @@ class AuthController extends Controller
             'alamat_pelanggan' => [
                 'required',
                 'string',
-                'min:10'
             ],
         ]);
 
@@ -67,5 +67,9 @@ class AuthController extends Controller
         return back()->withErrors([
             'email_pelanggan' => 'Email atau password salah'
         ]);
+    }
+    function Logout(){
+        auth('pelanggan')->logout();
+        return redirect()->route('home');
     }
 }
