@@ -14,6 +14,7 @@ use App\Http\Controllers\AuthController as Auth;
 */
 
 // Halaman publik
+
 Route::get('/', function () {
     return view('Layouts.dashboard');
 })->name('home');
@@ -29,4 +30,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/login', [Auth::class, 'Login'])->name('login.post');
     Route::post('/logout', [Auth::class,'Logout'])->name('pelanggan.logout');
 });
+
+
+
 include 'admin.php';
