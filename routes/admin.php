@@ -12,12 +12,10 @@ Route::get('/loginadmin', function () {
 Route::post('/loginadmin', [Admin::class, 'Login'])->name('admin.post');
 
 //jika terautentikasi dan terotorisasi sebagai admin maka 
-Route::middleware(['auth', 'adminAuth'])->group(function () {
+Route::middleware([ 'adminAuth'])->group(function () {
     Route::get('/admindashboard', function () {
-        return view('admin.admindashboard');
+        return view('admin.Layouts.dashboard');
     })->name('admin.home');
-
-
 });
 
 //untuk Logout 
