@@ -10,14 +10,10 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
-    <h1>Ini Admin </h1>
     <div class="flex gap-4">
         @yield('Sidebar')
         @yield('content')
     </div>
-    <form action={{ route('admin.logout') }} method="post">
-        @csrf
-        <button class="p-2 bg-red-400 text-white font-bold ">Logout</button>
-    </form>
+   
 </body>
 </html>

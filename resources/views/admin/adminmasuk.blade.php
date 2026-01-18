@@ -42,7 +42,7 @@
                 <div class="relative">
                     <span
                         class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-[18px]">
-                        <img src="/img/profile.svg">
+                        <img src="/img/svg/profile.svg">
                     </span>
                     <input
                         type="email"
@@ -67,7 +67,7 @@
                 <div class="relative">
                     <span
                         class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-[18px]">
-                        <img src="/img/password.svg">
+                        <img src="/img/svg/password.svg">
                     </span>
                     <input
                         type="password"

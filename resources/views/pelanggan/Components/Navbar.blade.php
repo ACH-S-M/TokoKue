@@ -45,7 +45,7 @@
             <div class="flex items-center gap-6 ">
                 <label class="hidden lg:flex flex-col min-w-96">
                     <div class="flex w-full rounded-full h-full p-2 items-center bg-slate-200 px-4">
-                        <img src="/img/cari.svg" class="w-[20px] mr-4">
+                        <img src="/img/svg/cari.svg" class="w-[20px] mr-4">
                         <input
                             class="form-input w-full border-none py-2 text-sm
                                    focus:outline-none focus:ring-0 focus:border-transparent
@@ -56,7 +56,7 @@
                 <a
                     href={{ route('Keranjang') }}
                     class="flex items-center justify-center rounded-full size-10 bg-slate-100 text-[#0d171b] dark:text-white hover:bg-primary/20 transition-all">
-                    <img src="/img/shopingbag.svg" class="w-[22px] cursor-pointer">
+                    <img src="/img/svg/shopingbag.svg" class="w-[22px] cursor-pointer">
                 </a>
                 @guest('pelanggan')
                     <div class="flex items-center gap-3">

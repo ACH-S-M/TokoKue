@@ -1,7 +1,7 @@
 @extends('admin.main')
 
 @section('Sidebar')
-    <h1>Ini aku disamping Lohhh </h1>
+    @include('admin.Components.Sidebar')
 @endsection
 
 @section('content')
