@@ -1,13 +1,10 @@
-<aside class="fixed inset-y-0 left-0 w-64 bg-blue-900 text-slate-200 flex flex-col z-20">
+<aside class=" inset-y-0 left-0 w-64 bg-blue-900 text-slate-200 flex flex-col z-20">
 
     <!-- Brand -->
     <div class="px-6 py-5 border-b border-slate-800">
-        <div class="flex items-center gap-3">
-            <div class="bg-primary/20 text-primary p-2 rounded-xl">
-                <span class="material-symbols-outlined text-xl">bakery_dining</span>
-            </div>
+        <div class="flex flex-col gap-3">
             <div>
-                <h1 class="text-white font-bold leading-tight">Lumière</h1>
+                <h1 class="text-white font-bold leading-tight">Halo {{ auth()->guard('admin')->user()->nama_admin }}</h1>
                 <p class="text-xs text-slate-400">Admin Panel</p>
             </div>
         </div>
@@ -15,36 +12,38 @@
 
     <!-- Menu -->
     <nav class="flex-1 px-4 py-6 space-y-1">
-        <!-- Active -->
-        <a href="#"
-           class="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-primary text-white font-semibold shadow-sm">
-            <img class="w-[25px]  " src="/img/svg/dashboard.svg">
+        <a href={{route('admin.home')}}
+           class="flex items-center gap-3 px-4 py-2.5 rounded-xl {{ request()->routeIs('admin.home') ? 'bg-primary text-yellow-600 font-semibold shadow-sm' : 'font-normal '}}">
+            <img class="w-[25px]" src="/img/svg/dashboard.svg">
             <span class="text-sm">Dashboard</span>
         </a>
-
-        <!-- Item -->
-        <a href="#"
-           class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
-            <span class="material-symbols-outlined text-lg">inventory_2</span>
-            <span class="text-sm">Products</span>
+        <a href="{{ route('admin.produk') }}"
+           class="flex items-center gap-3 px-4 py-2.5 rounded-xl {{ request()->routeIs('admin.produk') ? 'bg-primary text-yellow-600 font-semibold shadow-sm' : 'font-normal '}}">
+            <img class="w-[25px]  " src="/img/svg/cake.svg">
+            <span class="text-sm">Produk Kue</span>
+        </a>
+        <a href="{{ route('admin.variasiproduk') }}"
+           class="flex items-center gap-3 px-4 py-2.5 rounded-xl {{ request()->routeIs('admin.variasiproduk') ? 'bg-primary text-yellow-600 font-semibold shadow-sm' : 'font-normal '}}">
+            <img class="w-[25px]  " src="/img/svg/cake.svg">
+            <span class="text-sm">Variasi Kue</span>
         </a>
 
         <a href="#"
            class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
-            <span class="material-symbols-outlined text-lg">shopping_cart</span>
-            <span class="text-sm">Orders</span>
+            <img class="w-[25px]  " src="/img/svg/pesanan.svg">
+            <span class="text-sm">Pesanan</span>
         </a>
 
         <a href="#"
            class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
-            <span class="material-symbols-outlined text-lg">bar_chart</span>
-            <span class="text-sm">Reports</span>
+            <img class="w-[25px]  " src="/img/svg/laporan.svg">
+            <span class="text-sm">Laporan keuangan</span>
         </a>
 
         <a href="#"
            class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
-            <span class="material-symbols-outlined text-lg">group</span>
-            <span class="text-sm">Customers</span>
+            <img class="w-[25px]  " src="/img/svg/pelanggan.svg">
+            <span class="text-sm">pelanggan</span>
         </a>
     </nav>
 
@@ -52,7 +51,7 @@
     <div class="px-4 py-5 border-t border-slate-800 space-y-2">
         <a href="#"
            class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
-            <span class="material-symbols-outlined text-lg">settings</span>
+            <img class="w-[25px]  " src="/img/svg/setting.svg">
             <span class="text-sm">Settings</span>
         </a>
 
@@ -60,7 +59,7 @@
             @csrf
             <button
                 class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500 hover:text-white transition font-semibold">
-                <span class="material-symbols-outlined text-lg">logout</span>
+                <img class="w-[25px]  " src="/img/svg/logout.svg">
                 <span class="text-sm">Logout</span>
             </button>
         </form>
