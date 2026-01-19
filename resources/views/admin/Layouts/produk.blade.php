@@ -13,7 +13,7 @@
         <div class="form flex gap-8 items-center">
             <!-- Card -->
             <div class="bg-white rounded-2xl shadow-md border p-10 w-[760px]">
-                <form method="POST" enctype="multipart/form-data" class="grid grid-cols-3 gap-8">
+                <form method="POST" enctype="multipart/form-data" class="grid grid-cols-3 gap-8" action={{ route('admin.post.produk') }}>
                     @csrf
 
                     <!-- LEFT: FORM -->
@@ -26,7 +26,7 @@
                             <input type="text" name="nama_kue" placeholder="Contoh: Brownies Coklat"
                                 class="border rounded-xl px-4 py-2.5
                            focus:ring-2 focus:ring-blue-500 focus:outline-none
-                           transition">
+                           transition"  value={{ old("nama_kue",$getKue?->nama_kue) }}>
                         </div>
 
                         <!-- Deskripsi -->
@@ -34,11 +34,11 @@
                             <label class="text-sm font-semibold text-slate-700">
                                 Deskripsi
                             </label>
-                            <textarea name="deskripsi" rows="5"
+                            <textarea name="deskripsi_kue" rows="5"
                                 placeholder="Ceritakan keunikan kue ini, rasa, tekstur, atau bahan unggulan..."
                                 class="border rounded-xl px-4 py-3
                            focus:ring-2 focus:ring-blue-500 focus:outline-none
-                           resize-none transition"></textarea>
+                           resize-none transition">{{ old("deskripsi_kue",$getKue?->deskripsi_kue) }}</textarea>
                         </div>
 
                         <!-- Action -->
@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <!-- RIGHT: IMAGE UPLOAD -->
+                    <!-- Kanan : IMAGE UPLOAD -->
                     <div class="col-span-1 flex flex-col gap-3">
                         <label class="text-sm font-semibold text-slate-700">
                             Gambar Kue <span class="text-red-500">*</span>
@@ -86,10 +86,10 @@
                 </form>
             </div>
             {{-- Preview Card --}}
-            <div class="w-[320px]">
-                <div class="bg-white rounded-2xl shadow-md border overflow-hidden">
+            <div class="w-[320px] max-h-[420px]">
+                <div class="bg-white rounded-2xl  shadow-md border overflow-hidden">
                     <!-- Image -->
-                    <div class="h-48 bg-slate-100 flex items-center justify-center">
+                    <div class="h-72 bg-slate-100 flex items-center justify-center">
                         <img id="previewImage" src="/img/svg/upload.svg" class="h-full object-cover hidden">
                         <span id="previewPlaceholder" class="text-slate-400 text-sm">
                             Preview gambar
@@ -97,7 +97,7 @@
                     </div>
 
                     <!-- Content -->
-                    <div class="p-4 flex flex-col gap-2">
+                    <div class="p-4 pb-14 flex flex-col gap-2">
                         <h3 id="previewNama" class="font-semibold text-slate-800 text-lg">
                             Nama Kue
                         </h3>
@@ -110,9 +110,84 @@
             </div>
 
         </div>
+       {{-- Tabel Produk --}}
+<div class="bg-white rounded-2xl shadow-sm border p-6 w-full">
+    <!-- Header -->
+    <div class="mb-6">
+        <h1 class="text-2xl font-bold text-slate-800">Daftar Produk</h1>
+        <p class="text-sm text-slate-500 mt-1">
+            Daftar produk yang sudah Anda tambahkan akan tampil di sini
+        </p>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+        <table class="w-full border-collapse">
+            <thead>
+                <tr class="bg-slate-50 text-left text-sm text-slate-600">
+                    <th class="px-4 py-3 font-semibold">ID Kue</th>
+                    <th class="px-4 py-3 font-semibold">Nama Kue</th>
+                    <th class="px-4 py-3 font-semibold">Deskripsi</th>
+                    <th class="px-4 py-3 font-semibold text-center">Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y">
+                @forelse ($kues as $kue)
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="px-4 py-3 text-sm text-slate-700">
+                            {{ $kue->KD_KUE }}
+                        </td>
+
+                        <td class="px-4 py-3 font-medium text-slate-800">
+                            {{ $kue->nama_kue }}
+                        </td>
+
+                        <td class="px-4 py-3 text-sm text-slate-600 max-w-[420px] truncate">
+                            {{ $kue->deskripsi_kue }}
+                        </td>
+
+                        <td class="px-4 py-3 text-center">
+                            <div class="flex justify-center gap-2">
+                                <a href="{{ route('admin.edit.produk', $kue->KD_KUE) }}"
+                                   class="px-3 py-1.5 text-sm rounded-lg
+                                          bg-blue-100 text-blue-700
+                                          hover:bg-blue-600 hover:text-white transition">
+                                    Edit
+                                </a> 
+                                
+                             <form action="{{ route('admin.delete.produk', $kue->KD_KUE) }}"
+                                      method="POST"
+                                      onsubmit="return confirm('Yakin hapus produk ini?')">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button
+                                        class="px-3 py-1.5 text-sm rounded-lg
+                                               bg-red-100 text-red-600
+                                               hover:bg-red-600 hover:text-white transition">
+                                        Hapus
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="4" class="text-center py-10 text-slate-400">
+                            Belum ada produk ditambahkan
+                        </td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
 
     </main>
 @endsection
+
+
 @push('scripts')
     <script>
         // Nama kue realtime
@@ -124,7 +199,7 @@
         });
 
         // Deskripsi realtime
-        const deskripsiInput = document.querySelector('textarea[name="deskripsi"]');
+        const deskripsiInput = document.querySelector('textarea[name="deskripsi_kue"]');
         const previewDeskripsi = document.getElementById('previewDeskripsi');
 
         deskripsiInput.addEventListener('input', function() {

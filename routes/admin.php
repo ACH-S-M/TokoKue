@@ -20,6 +20,11 @@ Route::middleware([ 'adminAuth'])->group(function () {
     
     // Ini untuk Kue
     Route::get('/produk', [Kue::class,'indexKue'])->name('admin.produk');
+    Route::post('/produk',[Kue::class,'PostKue'])->name('admin.post.produk');
+    Route::delete('/produk/Hapus/{kue}',[Kue::class,'deleteKue'])->name('admin.delete.produk');
+    Route::get('/produk/{KD_KUE}',[Kue::class,'editKue'])->name('admin.edit.produk');
+    Route::put('/produk/update', [Kue::class,'updateKue'])->name('admin.update.produk');
+
     //  Ini untuk variasi Kue
     Route::get('/variasiproduk', [Kue::class,'indexVariasiKue'])->name('admin.variasiproduk');
 

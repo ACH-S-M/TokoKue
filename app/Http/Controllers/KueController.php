@@ -3,13 +3,62 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\KueModel as Kue;
+use Illuminate\Support\Facades\Storage;
 
 class KueController extends Controller
 {
-    function indexKue(){
-        return view("admin.Layouts.produk");
+    function indexKue()
+    {
+        $kues = Kue::all();
+        $getKue = null;
+        return view("admin.Layouts.produk", ["kues" => $kues,'getKue' => $getKue]);
     }
-    function indexVariasiKue(){
+    function indexVariasiKue()
+    {
         return view("admin.Layouts.variasiproduk");
+    }
+    function PostKue(Request $request)
+    {
+        $validate = $request->validate([
+            'nama_kue' => 'required',
+            'gambar_kue' => 'required|image|max:2048',
+        ]);
+
+        $filename = time() . '_' . uniqid() . '.' . $request->file('gambar_kue')->getClientOriginalExtension();
+        $request->file('gambar_kue')->move(public_path('img/produk'), $filename);
+
+        $kue = Kue::create([
+            "nama_kue" => $validate["nama_kue"],
+            "gambar_kue" => $filename,
+            "deskripsi_kue" => $request->deskripsi_kue,
+        ]);
+        if ($kue) {
+            return redirect()->route("admin.produk")->with("success", "1");
+        }
+    }
+
+    function deleteKue(Kue $kue)
+    {
+        Storage::delete('/img/produk/'.$kue->gambar_kue);
+        $kue->delete();
+        return redirect()->route("admin.produk")->with("success", "0");
+    }
+
+    function editKue($KD_KUE){
+        $getKue = Kue::findOrFail($KD_KUE);
+        $kues = Kue::all();
+        return view('admin.Layouts.produk', compact(['getKue','kues']));
+    }
+    function updateKue(Request $request, Kue $kue){
+
+        $validate = $request->validate([
+            "nama_kue" => "sometimes|string",
+            "gambar_kue" => "sometimes|nullable|image|max:2048",
+            "deskripsi_kue" => "sometimes|nullable|string"
+        ]);
+        
+        $kue->update($validate);
+        return  redirect()->route("admin.produk")->with("success", "0");
     }
 }
