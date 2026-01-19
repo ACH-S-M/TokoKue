@@ -20,8 +20,8 @@
         </div>
 
         <div class="bg-white rounded-xl shadow p-5">
-            <p class="text-sm text-slate-500">Produk</p>
-            <h2 class="text-3xl font-bold text-slate-800">320</h2>
+            <p class="text-sm text-slate-500">Total Jenis Kue</p>
+            <h2 class="text-3xl font-bold text-slate-800">{{ $dataProduk }}</h2>
         </div>
 
         <div class="bg-white rounded-xl shadow p-5">

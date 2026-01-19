@@ -16,7 +16,6 @@ return new class extends Migration
             $table->unsignedBigInteger('KD_KUE');
             $table->unsignedBigInteger('harga_kue');
             $table->enum('ukuran_kue',['S','M','L','XL']);
-            $table->string('toping_kue')->nullable();
             $table->foreign('KD_KUE')->references('KD_KUE')->on('kue');
 
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\KueModel as Kue;
+use App\Models\VariasiKueModel as Variasi;
 use Illuminate\Support\Facades\Storage;
 
 class KueController extends Controller
@@ -16,7 +17,9 @@ class KueController extends Controller
     }
     function indexVariasiKue()
     {
-        return view("admin.Layouts.variasiproduk");
+        $kues = Kue::all();
+        $variasikues = Variasi::all();
+        return view("admin.Layouts.variasiproduk",compact('kues','variasikues'));
     }
     function PostKue(Request $request)
     {

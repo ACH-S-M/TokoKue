@@ -14,9 +14,7 @@ Route::post('/loginadmin', [Admin::class, 'Login'])->name('admin.post');
 
 //jika terautentikasi dan terotorisasi sebagai admin maka 
 Route::middleware([ 'adminAuth'])->group(function () {
-    Route::get('/admindashboard', function () {
-        return view('admin.Layouts.dashboard');
-    })->name('admin.home');
+    Route::get('/admindashboard', [Admin::class,'Index'])->name('admin.home');
     
     // Ini untuk Kue
     Route::get('/produk', [Kue::class,'indexKue'])->name('admin.produk');

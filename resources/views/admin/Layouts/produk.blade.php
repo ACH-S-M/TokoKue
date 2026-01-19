@@ -7,7 +7,7 @@
     <main class="flex flex-col gap-10">
         <!-- Title -->
         <div class="title">
-            <h1 class="text-3xl font-bold text-slate-800">Tambah Produk</h1>
+            <h1 class="text-3xl font-bold text-slate-800">Tambah Kue</h1>
             <p class="text-slate-500 mt-1">Tambah kue baru untuk dijual</p>
         </div>
         <div class="form flex gap-8 items-center">
