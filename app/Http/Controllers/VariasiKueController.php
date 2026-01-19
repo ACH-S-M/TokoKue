@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\KueModel as Kue;
 use App\Models\VariasiKueModel as Variasi;
+
 class VariasiKueController extends Controller
 {
     function indexVariasiKue()
@@ -12,6 +13,22 @@ class VariasiKueController extends Controller
         $kues = Kue::all();
         $variasikues = Variasi::all();
         $getKue = null;
-        return view("admin.Layouts.variasiproduk", compact('kues', 'variasikues','getKue'));
+        return view("admin.Layouts.variasiproduk", compact('kues', 'variasikues', 'getKue'));
+    }
+    function PostVariasiKue(Request $request)
+    {
+        $KD_VARIASI = $request->KD_KUE . $request->ukuran_kue;
+        $validate = $request->validate([
+            "harga_kue" => 'required|integer',
+        ]);
+        $variasiKue = Variasi::create([
+            'KD_VARIASI' => $KD_VARIASI,
+            'KD_KUE' => $request->KD_KUE,
+            'harga_kue' => $validate['harga_kue'],
+            'ukuran_kue' => $request->ukuran_kue
+        ]);
+        if($variasiKue){
+            return redirect()->back()->with('success','Berhasil');
+        }
     }
 }

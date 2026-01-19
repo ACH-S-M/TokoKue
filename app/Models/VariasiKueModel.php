@@ -10,6 +10,7 @@ class VariasiKueModel extends Model
     protected $primaryKey = 'KD_VARIASI';
     protected $table = 'variasi_kue';
     protected $fillable = [
+        'KD_VARIASI',
         'KD_KUE',
         'harga_kue',
         'ukuran_kue',

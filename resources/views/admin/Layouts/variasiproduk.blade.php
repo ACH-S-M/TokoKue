@@ -17,13 +17,14 @@ $sizes = ['S', 'M', 'L', 'XL'];
         <div class="form flex items-center gap-8 ">
             {{-- Form Disini  --}}
             <div class="card w-[760px] border rounded-xl p-10 mt-4 min-h-[420px] ">
-                <form action="" class="w-full ">
-
+                <form action={{ route('admin.post.variasiproduk') }} class="w-full " method="POST">
+                    @csrf
                     {{-- Kd Kue --}}
                     <div class="flex flex-col gap-2">
                         <label for="KD_KUE" class="text-sm font-semibold text-slate-700">Pilih Jenis Kue <span
                                 class="text-red-500">*</span></label>
                         <select class="border w-1/2 p-2 " name="KD_KUE" id="selectKue">
+                            <option>Pilih Jenis Kue</option>
                             @foreach ($kues as $kue)
                                 <option value="{{ $kue->KD_KUE }}"> {{ $kue->nama_kue }}</option>
                             @endforeach
@@ -42,7 +43,7 @@ $sizes = ['S', 'M', 'L', 'XL'];
                     <div class="harga flex flex-col gap-2 mt-4">
                         <label for="ukuran_kue" class="text-sm font-semibold text-slate-700"> Ukuran Kue <span
                                 class="text-red-500">*</span> </label>
-                        <select class="border w-1/2 p-2 " name="KD_KUE" id="selectUkuran">
+                        <select class="border w-1/2 p-2 " name="ukuran_kue" id="selectUkuran">
                             @foreach ($sizes as $size)
                                 <option value="{{ $size }}"> {{ $size }}</option>
                             @endforeach

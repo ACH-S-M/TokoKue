@@ -26,6 +26,7 @@ Route::middleware([ 'adminAuth'])->group(function () {
 
     //  Ini untuk variasi Kue
     Route::get('/variasiproduk', [VariasiKue::class,'indexVariasiKue'])->name('admin.variasiproduk');
+    Route::post('/variasiproduk', [VariasiKue::class,'PostVariasiKue'])->name('admin.post.variasiproduk');
 
     //untuk Logout 
 Route::post('/logoutadmin', [Admin::class, 'Logout'])->name('admin.logout');
