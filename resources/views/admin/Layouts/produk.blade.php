@@ -14,9 +14,8 @@
             <!-- Card -->
             <div class="bg-white rounded-2xl shadow-md border p-10 w-[760px]">
                 {{-- Metode form untuk menentukan apakah update atau delete  --}}
-                <form method="POST" enctype="multipart/form-data" class="grid grid-cols-3 gap-8" action={{ 
-                        $getKue ? route('admin.update.produk',$getKue->KD_KUE)  : route('admin.post.produk')
-                    }}>
+                <form method="POST" enctype="multipart/form-data" class="grid grid-cols-3 gap-8"
+                    action={{ $getKue ? route('admin.update.produk', $getKue->KD_KUE) : route('admin.post.produk') }}>
                     @csrf
                     @if ($getKue)
                         @method('PUT')
@@ -26,12 +25,13 @@
                         <!-- Nama Kue -->
                         <div class="flex flex-col gap-1">
                             <label class="text-sm font-semibold text-slate-700">
-                                Nama Kue <span class="text-red-500">*</span>
+                                Nama Kue <span class="text-red-500">* {{ $getKue?->nama_kue }}</span>
                             </label>
                             <input type="text" name="nama_kue" placeholder="Contoh: Brownies Coklat"
                                 class="border rounded-xl px-4 py-2.5
                            focus:ring-2 focus:ring-blue-500 focus:outline-none
-                           transition"  value={{ old("nama_kue",$getKue?->nama_kue) }}>
+                           transition"
+                                value="{{ old('nama_kue', $getKue?->nama_kue) }}">
                         </div>
 
                         <!-- Deskripsi -->
@@ -43,7 +43,7 @@
                                 placeholder="Ceritakan keunikan kue ini, rasa, tekstur, atau bahan unggulan..."
                                 class="border rounded-xl px-4 py-3
                            focus:ring-2 focus:ring-blue-500 focus:outline-none
-                           resize-none transition">{{ old("deskripsi_kue",$getKue?->deskripsi_kue) }}</textarea>
+                           resize-none transition">{{ old('deskripsi_kue', $getKue?->deskripsi_kue) }}</textarea>
                         </div>
 
                         <!-- Action -->
@@ -94,11 +94,11 @@
             <div class="w-[320px] max-h-[420px]">
                 <div class="bg-white rounded-2xl  shadow-md border overflow-hidden">
                     <!-- Image -->
-                    <div class="h-72 bg-slate-100 flex items-center justify-center">
-                        <img id="previewImage" src="/img/svg/upload.svg" class="h-full object-cover hidden">
-                        <span id="previewPlaceholder" class="text-slate-400 text-sm">
-                            Preview gambar
-                        </span>
+                    <div class="h-72 bg-slate-200 flex items-center justify-center">
+                        <img id="previewImage"
+                            src="{{ $getKue?->gambar_kue ? asset('img/produk/' . $getKue->gambar_kue) : asset('img/svg/upload.svg') }}"
+                            class="h-full object-cover">
+
                     </div>
 
                     <!-- Content -->
@@ -115,79 +115,78 @@
             </div>
 
         </div>
-       {{-- Tabel Produk --}}
-<div class="bg-white rounded-2xl shadow-sm border p-6 w-full">
-    <!-- Header -->
-    <div class="mb-6">
-        <h1 class="text-2xl font-bold text-slate-800">Daftar Produk</h1>
-        <p class="text-sm text-slate-500 mt-1">
-            Daftar produk yang sudah Anda tambahkan akan tampil di sini
-        </p>
-    </div>
+        {{-- Tabel Produk --}}
+        <div class="bg-white rounded-2xl shadow-sm border p-6 w-full">
+            <!-- Header -->
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-slate-800">Daftar Produk</h1>
+                <p class="text-sm text-slate-500 mt-1">
+                    Daftar produk yang sudah Anda tambahkan akan tampil di sini
+                </p>
+            </div>
 
-    <!-- Table -->
-    <div class="overflow-x-auto">
-        <table class="w-full border-collapse">
-            <thead>
-                <tr class="bg-slate-50 text-left text-sm text-slate-600">
-                    <th class="px-4 py-3 font-semibold">ID Kue</th>
-                    <th class="px-4 py-3 font-semibold">Nama Kue</th>
-                    <th class="px-4 py-3 font-semibold">Deskripsi</th>
-                    <th class="px-4 py-3 font-semibold text-center">Aksi</th>
-                </tr>
-            </thead>
+            <!-- Table -->
+            <div class="overflow-x-auto">
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 text-left text-sm text-slate-600">
+                            <th class="px-4 py-3 font-semibold">ID Kue</th>
+                            <th class="px-4 py-3 font-semibold">Nama Kue</th>
+                            <th class="px-4 py-3 font-semibold">Deskripsi</th>
+                            <th class="px-4 py-3 font-semibold text-center">Aksi</th>
+                        </tr>
+                    </thead>
 
-            <tbody class="divide-y">
-                @forelse ($kues as $kue)
-                    <tr class="hover:bg-slate-50 transition">
-                        <td class="px-4 py-3 text-sm text-slate-700">
-                            {{ $kue->KD_KUE }}
-                        </td>
+                    <tbody class="divide-y">
+                        @forelse ($kues as $kue)
+                            <tr class="hover:bg-slate-50 transition">
+                                <td class="px-4 py-3 text-sm text-slate-700">
+                                    {{ $kue->KD_KUE }}
+                                </td>
 
-                        <td class="px-4 py-3 font-medium text-slate-800">
-                            {{ $kue->nama_kue }}
-                        </td>
+                                <td class="px-4 py-3 font-medium text-slate-800">
+                                    {{ $kue->nama_kue }}
+                                </td>
 
-                        <td class="px-4 py-3 text-sm text-slate-600 max-w-[420px] truncate">
-                            {{ $kue->deskripsi_kue }}
-                        </td>
+                                <td class="px-4 py-3 text-sm text-slate-600 max-w-[420px] truncate">
+                                    {{ $kue->deskripsi_kue }}
+                                </td>
 
-                        <td class="px-4 py-3 text-center">
-                            <div class="flex justify-center gap-2">
-                                <a href="{{ route('admin.edit.produk', $kue->KD_KUE) }}"
-                                   class="px-3 py-1.5 text-sm rounded-lg
+                                <td class="px-4 py-3 text-center">
+                                    <div class="flex justify-center gap-2">
+                                        <a href="{{ route('admin.edit.produk', $kue->KD_KUE) }}"
+                                            class="px-3 py-1.5 text-sm rounded-lg
                                           bg-blue-100 text-blue-700
                                           hover:bg-blue-600 hover:text-white transition">
-                                    Edit
-                                </a> 
-                                
-                             <form action="{{ route('admin.delete.produk', $kue->KD_KUE) }}"
-                                      method="POST"
-                                      onsubmit="return confirm('Yakin hapus produk ini?')">
-                                    @csrf
-                                    @method('DELETE')
+                                            Edit
+                                        </a>
 
-                                    <button
-                                        class="px-3 py-1.5 text-sm rounded-lg
+                                        <form action="{{ route('admin.delete.produk', $kue->KD_KUE) }}" method="POST"
+                                            onsubmit="return confirm('Yakin hapus produk ini?')">
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button
+                                                class="px-3 py-1.5 text-sm rounded-lg
                                                bg-red-100 text-red-600
                                                hover:bg-red-600 hover:text-white transition">
-                                        Hapus
-                                    </button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="4" class="text-center py-10 text-slate-400">
-                            Belum ada produk ditambahkan
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
-    </div>
-</div>
+                                                Hapus
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="text-center py-10 text-slate-400">
+                                    Belum ada produk ditambahkan
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
     </main>
 @endsection
