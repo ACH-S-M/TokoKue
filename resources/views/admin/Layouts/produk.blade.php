@@ -13,9 +13,14 @@
         <div class="form flex gap-8 items-center">
             <!-- Card -->
             <div class="bg-white rounded-2xl shadow-md border p-10 w-[760px]">
-                <form method="POST" enctype="multipart/form-data" class="grid grid-cols-3 gap-8" action={{ route('admin.post.produk') }}>
+                {{-- Metode form untuk menentukan apakah update atau delete  --}}
+                <form method="POST" enctype="multipart/form-data" class="grid grid-cols-3 gap-8" action={{ 
+                        $getKue ? route('admin.update.produk',$getKue->KD_KUE)  : route('admin.post.produk')
+                    }}>
                     @csrf
-
+                    @if ($getKue)
+                        @method('PUT')
+                    @endif
                     <!-- LEFT: FORM -->
                     <div class="col-span-2 flex flex-col gap-6">
                         <!-- Nama Kue -->

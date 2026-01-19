@@ -50,15 +50,13 @@ class KueController extends Controller
         $kues = Kue::all();
         return view('admin.Layouts.produk', compact(['getKue','kues']));
     }
-    function updateKue(Request $request, Kue $kue){
-
+    function updateKue(Request $request, $KD_KUE){
         $validate = $request->validate([
             "nama_kue" => "sometimes|string",
             "gambar_kue" => "sometimes|nullable|image|max:2048",
             "deskripsi_kue" => "sometimes|nullable|string"
         ]);
-        
-        $kue->update($validate);
+        $kue = Kue::findOrFail($KD_KUE)->update($validate);
         return  redirect()->route("admin.produk")->with("success", "0");
     }
 }
