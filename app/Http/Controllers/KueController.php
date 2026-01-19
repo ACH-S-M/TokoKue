@@ -13,13 +13,7 @@ class KueController extends Controller
     {
         $kues = Kue::all();
         $getKue = null;
-        return view("admin.Layouts.produk", ["kues" => $kues,'getKue' => $getKue]);
-    }
-    function indexVariasiKue()
-    {
-        $kues = Kue::all();
-        $variasikues = Variasi::all();
-        return view("admin.Layouts.variasiproduk",compact('kues','variasikues'));
+        return view("admin.Layouts.produk", ["kues" => $kues, 'getKue' => $getKue]);
     }
     function PostKue(Request $request)
     {
@@ -43,17 +37,19 @@ class KueController extends Controller
 
     function deleteKue(Kue $kue)
     {
-        Storage::delete('/img/produk/'.$kue->gambar_kue);
+        Storage::delete('/img/produk/' . $kue->gambar_kue);
         $kue->delete();
         return redirect()->route("admin.produk")->with("success", "0");
     }
 
-    function editKue($KD_KUE){
+    function editKue($KD_KUE)
+    {
         $getKue = Kue::findOrFail($KD_KUE);
         $kues = Kue::all();
-        return view('admin.Layouts.produk', compact(['getKue','kues']));
+        return view('admin.Layouts.produk', compact(['getKue', 'kues']));
     }
-    function updateKue(Request $request, $KD_KUE){
+    function updateKue(Request $request, $KD_KUE)
+    {
         $validate = $request->validate([
             "nama_kue" => "sometimes|string",
             "gambar_kue" => "sometimes|nullable|image|max:2048",

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController as Admin;
 use App\Http\Controllers\KueController as Kue;
+use App\Http\Controllers\VariasiKueController as VariasiKue;
 
 //untuk Rute Login admin
 Route::get('/loginadmin', function () {
@@ -24,7 +25,7 @@ Route::middleware([ 'adminAuth'])->group(function () {
     Route::put('/produk/update/{KD_KUE}', [Kue::class,'updateKue'])->name('admin.update.produk');
 
     //  Ini untuk variasi Kue
-    Route::get('/variasiproduk', [Kue::class,'indexVariasiKue'])->name('admin.variasiproduk');
+    Route::get('/variasiproduk', [VariasiKue::class,'indexVariasiKue'])->name('admin.variasiproduk');
 
     //untuk Logout 
 Route::post('/logoutadmin', [Admin::class, 'Logout'])->name('admin.logout');
