@@ -14,6 +14,11 @@ class VariasiKueModel extends Model
         'KD_KUE',
         'harga_kue',
         'ukuran_kue',
+        'tinggi_kue',
+        'diameter_kue',
+        'berat_bersih',
+        'KD_RASA',
+        'KD_TOPPING',
         'toping_kue',
     ];
     public $timestamps = false;

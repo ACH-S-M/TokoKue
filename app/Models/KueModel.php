@@ -13,12 +13,13 @@ class KueModel extends Model
         "nama_kue",
         "gambar_kue",
         "deskripsi_kue",
+        "stok",
     ];
     public $timestamps = false;
 
     function variasi_kue(){
          return $this->hasMany(Variasi::class,"KD_KUE","KD_KUE");
-     }
+    }
     use HasFactory;
 
 }

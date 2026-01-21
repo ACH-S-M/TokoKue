@@ -1,15 +1,8 @@
-<?php
+ <?php
 $sizes = ['S', 'M', 'L', 'XL'];
 ?>
-
-@extends('admin.main')
-
-@section('sidebar')
-    @include('admin.components.sidebar')
-@endsection
-
-@section('content')
-    <div class="min-h-screen  w-full ">
+ 
+ <div class="min-h-screen  w-full ">
         <div class="title ">
             <h1 class="text-3xl font-bold mb-1 text-slate-800">Tambah Variasi Kue</h1>
             <h1 class="text-md text-slate-600">Tambahkan variasi kue seperti Toping, Ukuran , harga dan Lain lain</h1>
@@ -87,8 +80,8 @@ $sizes = ['S', 'M', 'L', 'XL'];
             </div>
         </div>
     </div>
-@endsection
 
+    
 @push('scripts')
     <script>
         // Ambil element

@@ -13,7 +13,7 @@ class VariasiKueController extends Controller
         $kues = Kue::all();
         $variasikues = Variasi::all();
         $getKue = null;
-        return view("admin.Layouts.variasiproduk", compact('kues', 'variasikues', 'getKue'));
+        return view("admin.Layouts.produk", compact('kues', 'variasikues', 'getKue'));
     }
     function PostVariasiKue(Request $request)
     {

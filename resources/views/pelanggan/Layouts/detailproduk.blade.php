@@ -26,7 +26,7 @@
             <div>
                 <p class="text-sm text-gray-500 mb-1">Harga</p>
                 <h2 id="price" class="text-3xl font-bold text-primary">
-                    Rp {{ number_format($thisproduk->variasi_kue->first()->harga_kue, 0, ',', '.') }}
+                    Rp {{ number_format($thisproduk->variasi_kue?->first()->harga_kue, 0, ',', '.') }}
                 </h2>
             </div>
 

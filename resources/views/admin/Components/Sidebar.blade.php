@@ -22,11 +22,6 @@
             <img class="w-[25px]  " src="/img/svg/cake.svg">
             <span class="text-sm">Produk Kue</span>
         </a>
-        <a href="{{ route('admin.variasiproduk') }}"
-           class="flex items-center gap-3 px-4 py-2.5 rounded-xl {{ request()->routeIs('admin.variasiproduk') ? 'bg-primary text-yellow-600 font-semibold shadow-sm' : 'font-normal '}}">
-            <img class="w-[25px]  " src="/img/svg/cake.svg">
-            <span class="text-sm">Variasi Kue</span>
-        </a>
 
         <a href="#"
            class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">

@@ -18,7 +18,7 @@ use App\Http\Controllers\WebController as Web;
 // Halaman publik
 
 Route::get('/', [Web::class,'Index'])->name('home');
-Route::get('/produk/{KD_PRODUK}',[Web::class,'DetailProduk'])->name('detailproduk');
+Route::get('/produk/detail/{KD_PRODUK}',[Web::class,'DetailProduk'])->name('detailproduk');
 
 // Group route auth
 Route::prefix('auth')->group(function () {
