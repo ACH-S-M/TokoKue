@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('KD_KUE');
             $table->string('nama_kue');
             $table->text('deskripsi_kue');
+            $table->unsignedInteger('jumlah_terjual')->default(0);
             $table->text('gambar_kue')->nullable();
         });
     }

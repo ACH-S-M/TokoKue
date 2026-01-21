@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController as Auth;
 use App\Http\Controllers\KeranjangController as Keranjang;
+use App\Http\Controllers\WebController as Web;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +17,8 @@ use App\Http\Controllers\KeranjangController as Keranjang;
 
 // Halaman publik
 
-Route::get('/', function () {
-    return view('pelanggan.Layouts.dashboard');
-})->name('home');
+Route::get('/', [Web::class,'Index'])->name('home');
+Route::get('/produk/{KD_PRODUK}',[Web::class,'DetailProduk'])->name('detailproduk');
 
 // Group route auth
 Route::prefix('auth')->group(function () {
