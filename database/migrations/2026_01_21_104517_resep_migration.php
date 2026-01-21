@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kue', function (Blueprint $table) {
-            $table->id('KD_KUE');
-            $table->string('nama_kue');
-            $table->text('deskripsi_kue');
-            $table->unsignedInteger('stok')->default(0);
-            $table->unsignedInteger('jumlah_terjual')->default(0);
-            $table->text('gambar_kue')->nullable();
+        Schema::create("resep_kue", function (Blueprint $table) {
+            $table->bigIncrements("KD_RESEP");
+            $table->unsignedBigInteger("KD_KUE");
+            $table->unsignedinteger("jumlah_hasil_kue");
+            $table->foreign("KD_KUE")->references("KD_KUE")->on("kue")->cascadeOnDelete();
         });
     }
 

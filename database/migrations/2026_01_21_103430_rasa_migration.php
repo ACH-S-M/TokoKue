@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create("variasi_kue", function (Blueprint $table) { 
-            $table->string('KD_VARIASI')->primary();
-            $table->unsignedBigInteger('KD_KUE');
-            $table->unsignedBigInteger('harga_kue');
-            $table->enum('ukuran_kue',['S','M','L','XL']);
-            $table->foreign('KD_KUE')->references('KD_KUE')->on('kue');
-
+        Schema::create("rasa", function (Blueprint $table) {
+            $table->bigIncrements("KD_RASA");
+            $table->string("nama_rasa");
         });
+
     }
 
     /**
