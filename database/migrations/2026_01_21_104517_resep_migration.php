@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create("resep_kue", function (Blueprint $table) {
             $table->bigIncrements("KD_RESEP");
             $table->unsignedBigInteger("KD_KUE");
+            $table->unsignedBigInteger("biaya_produksi");
             $table->unsignedinteger("jumlah_hasil_kue");
             $table->foreign("KD_KUE")->references("KD_KUE")->on("kue")->cascadeOnDelete();
         });
