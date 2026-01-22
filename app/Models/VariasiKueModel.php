@@ -26,7 +26,9 @@ class VariasiKueModel extends Model
     public function Kue(){
         return $this->belongsTo(Kue::class,'KD_KUE','KD_KUE');
     }
-
+    public function rasa(){
+        return $this->hasMany(Kue::class,'KD_RASA','KD_RASA');
+    }
     use HasFactory;
 
 

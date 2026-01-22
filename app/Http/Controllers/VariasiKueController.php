@@ -8,13 +8,6 @@ use App\Models\VariasiKueModel as Variasi;
 
 class VariasiKueController extends Controller
 {
-    function indexVariasiKue()
-    {
-        $kues = Kue::all();
-        $variasikues = Variasi::all();
-        $getKue = null;
-        return view("admin.Layouts.produk", compact('kues', 'variasikues', 'getKue'));
-    }
     function PostVariasiKue(Request $request)
     {
         $KD_VARIASI = $request->KD_KUE . $request->ukuran_kue;
