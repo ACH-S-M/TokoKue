@@ -27,7 +27,7 @@ class VariasiKueModel extends Model
         return $this->belongsTo(Kue::class,'KD_KUE','KD_KUE');
     }
     public function rasa(){
-        return $this->hasMany(Kue::class,'KD_RASA','KD_RASA');
+        return $this->belongsToMany(RasaModel::class,'variasi_kue_rasa','KD_VARIASI','KD_RASA');
     }
     use HasFactory;
 

@@ -14,8 +14,8 @@ class RasaModel extends Model
     ];
     public $timestamps = false;
 
-    function variasi_kue(){
-        return $this->belongsTo(RasaModel::class,'KD_RASA','KD_RASA');
+    function variasi_kue_rasa(){
+          return $this->belongsToMany(VariasiKueModel::class,'variasi_kue_rasa','KD_RASA','KD_VARIASI');
     }
 
     use HasFactory;
