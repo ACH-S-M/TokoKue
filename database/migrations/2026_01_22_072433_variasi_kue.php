@@ -21,8 +21,6 @@ return new class extends Migration
             $table->unsignedBigInteger('KD_TOPPING')->nullable();
             $table->unsignedBigInteger('KD_RASA');
             $table->enum('ukuran_kue',['S','M','L','XL']);
-            $table->foreign('KD_TOPPING')->references('KD_TOPPING')->on('topping')->cascadeOnDelete();
-            $table->foreign('KD_RASA')->references('KD_RASA')->on('rasa')->cascadeOnDelete();
             $table->foreign('KD_KUE')->references('KD_KUE')->on('kue');
         });
     }
