@@ -13,5 +13,6 @@ class ToppingModel extends Model
         "biaya_tambahan",
     ];
     protected $primaryKey = 'KD_TOPPING';
+    public $timestamps = false;
     use HasFactory;
 }

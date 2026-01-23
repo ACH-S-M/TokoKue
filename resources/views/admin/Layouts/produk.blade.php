@@ -30,22 +30,19 @@
         @include('admin.Components.produk.variasiprodukcomponent')
     </div>
     <div id="condiment_produk" class="tab-content hidden">
-       @include('admin.components.produk.condimentproduk')
+        @include('admin.components.produk.condimentproduk')
     </div>
 @endsection
 
 @push('scripts')
-<script>
-    const buttons = document.querySelectorAll('.tab-btn')
-    const contents = document.querySelectorAll('.tab-content')
+    <script>
+        const buttons = document.querySelectorAll('.tab-btn')
+        const contents = document.querySelectorAll('.tab-content')
 
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const target = btn.dataset.tab
-
+        function activateTab(tabName) {
             // hide all content
             contents.forEach(c => c.classList.add('hidden'))
-            document.getElementById(target).classList.remove('hidden')
+            document.getElementById(tabName)?.classList.remove('hidden')
 
             // reset all buttons
             buttons.forEach(b => {
@@ -58,16 +55,30 @@
                 b.classList.add('text-gray-500')
             })
 
-            // activate current
-            btn.classList.remove('text-gray-500')
-            btn.classList.add(
-                'text-primary',
-                'border-b-2',
-                'border-primary',
-                'font-semibold'
-            )
-        })
-    })
-</script>
-@endpush
+            // activate current button
+            const activeBtn = document.querySelector(`[data-tab="${tabName}"]`)
+            if (activeBtn) {
+                activeBtn.classList.remove('text-gray-500')
+                activeBtn.classList.add(
+                    'text-primary',
+                    'border-b-2',
+                    'border-primary',
+                    'font-semibold'
+                )
+            }
+        }
 
+        // klik manual
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                activateTab(btn.dataset.tab)
+            })
+        })
+
+        // ⬇️ AUTO ACTIVE TAB DARI SESSION
+        document.addEventListener('DOMContentLoaded', () => {
+            const activeTab = "{{ session('active_tab', 'produk') }}"
+            activateTab(activeTab)
+        })
+    </script>
+@endpush

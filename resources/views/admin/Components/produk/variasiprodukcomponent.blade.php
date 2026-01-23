@@ -137,8 +137,8 @@
                          <th class="px-4 py-3 font-semibold">Kode Variasi</th>
                          <th class="px-4 py-3 font-semibold">Harga Kue</th>
                          <th class="px-4 py-3 font-semibold">Berat Bersih</th>
-                         <th class="px-4 py-3 font-semibold">Diameter Kue</th>
-                         <th class="px-4 py-3 font-semibold">Tinggi Kue</th>
+                         <th class="px-4 py-3 font-semibold">Diameter Kue (Cm)</th>
+                         <th class="px-4 py-3 font-semibold">Tinggi Kue (Cm)</th>
                          <th class="px-4 py-3 font-semibold">Ukuran Kue</th>
                          <th class="px-4 py-3 font-semibold text-center">Aksi</th>
                      </tr>

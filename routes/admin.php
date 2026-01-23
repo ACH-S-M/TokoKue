@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController as Admin;
 use App\Http\Controllers\KueController as Kue;
 use App\Http\Controllers\VariasiKueController as VariasiKue;
+use App\Http\Controllers\CondimentController;
 
 //untuk Rute Login admin
 Route::get('/loginadmin', function () {
@@ -24,6 +25,8 @@ Route::middleware([ 'adminAuth'])->group(function () {
     Route::get('/produk/edit/{KD_KUE}',[Kue::class,'editKue'])->name('admin.edit.produk');
     Route::put('/produk/update/{KD_KUE}', [Kue::class,'updateKue'])->name('admin.update.produk');
     Route::post('/variasiproduk', [VariasiKue::class,'PostVariasiKue'])->name('admin.post.variasiproduk');
+
+    Route::post('/produk/condiment',[CondimentController::class, 'store'])->name('admin.post.condiment');
 
     //untuk Logout 
 Route::post('/logoutadmin', [Admin::class, 'Logout'])->name('admin.logout');

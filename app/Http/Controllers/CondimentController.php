@@ -13,28 +13,51 @@ use Illuminate\Support\Facades\DB;
 class CondimentController extends Controller
 {
     //Ini buat penambahan Topping jika ingin di Tambah 
-    public function postCondiment(Request $request)
-    {
-        $validate = $request->validate([
-            "nama_topping"   => "required|string|unique:topping,nama_topping",
-            "biaya_tambahan" => "required|integer|min:0",
-            "nama_rasa"      => "required|string|unique:rasa,nama_rasa",
-        ]);
+ public function store(Request $request)
+{
+    try {
 
-        DB::transaction(function () use ($validate) {
+        if ($request->type === 'topping') {
+
+            $validated = $request->validate([
+                'nama'  => 'required|string|unique:topping,nama_topping',
+                'harga' => 'required|numeric|min:0',
+            ], [
+                'nama.unique'  => 'Topping dengan nama tersebut sudah ada.',
+                'nama.required' => 'Nama topping wajib diisi.',
+                'harga.required' => 'Harga topping wajib diisi.',
+            ]);
 
             Topping::create([
-                "nama_topping"   => $validate["nama_topping"],
-                "biaya_tambahan" => $validate["biaya_tambahan"],
+                'nama_topping'   => $validated['nama'],
+                'biaya_tambahan' => $validated['harga'],
+            ]);
+
+            return back()->with('success', 'Topping berhasil ditambahkan.')->with('active_tab', 'condiment_produk');
+        }
+
+        if ($request->type === 'rasa') {
+
+            $validated = $request->validate([
+                'nama' => 'required|string|unique:rasa,nama_rasa',
+            ], [
+                'nama.unique'  => 'Rasa dengan nama tersebut sudah ada.',
+                'nama.required' => 'Nama rasa wajib diisi.',
             ]);
 
             Rasa::create([
-                "nama_rasa" => $validate["nama_rasa"],
+                'nama_rasa' => $validated['nama'],
             ]);
-        });
+             return back()->with('success', 'Topping berhasil ditambahkan.')->with('active_tab', 'condiment_produk');
+        }
+        return back()->with('error', 'Tipe condiment tidak valid.');
 
-        return back()->with('success', 'Condiment berhasil ditambahkan');
+    } catch (\Exception $e) {
+
+        return back()->with('error', 'Terjadi kesalahan saat menyimpan data.');
     }
+}
+
 
 
 
