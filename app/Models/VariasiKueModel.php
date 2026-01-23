@@ -17,13 +17,10 @@ class VariasiKueModel extends Model
         'tinggi_kue',
         'diameter_kue',
         'berat_bersih',
-        'KD_RASA',
-        'KD_TOPPING',
-        'toping_kue',
     ];
     public $timestamps = false;
 
-    public function Kue(){
+    public function kue(){
         return $this->belongsTo(Kue::class,'KD_KUE','KD_KUE');
     }
     public function rasa(){

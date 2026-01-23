@@ -20,7 +20,7 @@
         <a href="{{ route('admin.produk') }}"
            class="flex items-center gap-3 px-4 py-2.5 rounded-xl {{ request()->routeIs('admin.produk') ? 'bg-primary text-yellow-600 font-semibold shadow-sm' : 'font-normal '}}">
             <img class="w-[25px]  " src="/img/svg/produk.svg">
-            <span class="text-sm">Produk Kue</span>
+            <span class="text-sm">Kelola Produk</span>
         </a>
 
         <a href="#"

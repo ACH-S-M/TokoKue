@@ -1,6 +1,5 @@
  <?php
  $sizes = ['S', 'M', 'L', 'XL'];
- $rasas = ['nanas','strawbery','coklat'];
  ?>
 
  <div class="min-h-screen  w-full ">
@@ -70,26 +69,16 @@
                          </select>
                      </div>
                  </div>
-
+                 
                  {{-- Ukuran --}}
                  <div class="flex flex-col gap-2">
                      <label class="text-sm font-semibold text-slate-700">
                          Ukuran Kue <span class="text-red-500">*</span>
                      </label>
                      <select name="ukuran_kue" class="border rounded-lg p-2 w-1/2">
-                         @foreach ($sizes as $size)
-                             <option value="{{ $size }}">{{ $size }}</option>
-                         @endforeach
-                     </select>
-                 </div>
-                 <div class="flex flex-col gap-2">
-                     <label class="text-sm font-semibold text-slate-700">
-                         Rasa Kue <span class="text-red-500">*</span>
-                     </label>
-                     <select name="ukuran_kue" class="border rounded-lg p-2 w-1/2">
-                         @foreach ($rasas as $rasa)
-                             <option value="{{ $rasa }}">{{ $rasa }}</option>
-                         @endforeach
+                        @foreach ($sizes as $size)
+                            <option value="{{ $size }}">{{ $size }}</option>
+                        @endforeach
                      </select>
                  </div>
 
@@ -116,7 +105,7 @@
                  <!-- Content -->
                  <div class="p-4 pb-14 flex flex-col gap-2">
                      <h3 id="previewNama" class="font-semibold text-slate-800 text-lg">
-                         Nama Kue
+                         Nama akan Tampil disini 
                      </h3>
 
                      <p id="previewDeskripsi" class="text-xl font-semibold text-slate-500 line-clamp-3">
@@ -150,25 +139,36 @@
                          <th class="px-4 py-3 font-semibold">Berat Bersih</th>
                          <th class="px-4 py-3 font-semibold">Diameter Kue</th>
                          <th class="px-4 py-3 font-semibold">Tinggi Kue</th>
-                         <th class="px-4 py-3 font-semibold">Rasa</th>
                          <th class="px-4 py-3 font-semibold">Ukuran Kue</th>
                          <th class="px-4 py-3 font-semibold text-center">Aksi</th>
                      </tr>
                  </thead>
 
                  <tbody class="divide-y">
-                     @forelse ($variasikues as $variasi)
-                         <tr class="hover:bg-slate-50 transition">
+                     @forelse ($kues as $kue)
+                         @foreach ($kue->variasi_kue as $variasi )
+                             <tr class="hover:bg-slate-50 transition">
                              <td class="px-4 py-3 text-sm text-slate-700">
                                  {{ $variasi->KD_VARIASI }}
                              </td>
 
                              <td class="px-4 py-3 font-medium text-slate-800">
-                                 {{ $kue->na }}
+                                   {{ $variasi->harga_kue }}
                              </td>
 
-                             <td class="px-4 py-3 text-sm text-slate-600 max-w-[420px] truncate">
-                                 {{ $kue->deskripsi_kue }}
+                             <td class="px-4 py-3 font-medium text-slate-800">
+                                   {{ $variasi->berat_bersih }}
+                             </td>
+
+                             <td class="px-4 py-3 font-medium text-slate-800">
+                                   {{ $variasi->diameter_kue }}
+                             </td>
+
+                             <td class="px-4 py-3 font-medium text-slate-800">
+                                   {{ $variasi->tinggi_kue }}
+                             </td>
+                             <td class="px-4 py-3 font-medium text-slate-800">
+                                   {{ $variasi->ukuran_kue }}
                              </td>
 
                              <td class="px-4 py-3 text-center">
@@ -195,6 +195,7 @@
                                  </div>
                              </td>
                          </tr>
+                         @endforeach
                      @empty
                          <tr>
                              <td colspan="8" class="text-center py-10 text-slate-400">

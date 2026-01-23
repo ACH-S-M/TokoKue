@@ -12,8 +12,13 @@
         </button>
         <button data-tab="variasi_produk"
             class="tab-btn flex items-center gap-2 px-4 py-2 rounded-t-lg text-gray-500 hover:text-primary transition">
-            <img src="/img/svg/topping.svg" class="max-w-[24px]"></span>
+            <img src="/img/svg/komponenKue.svg" class="max-w-[24px]"></span>
             Variasi Produk
+        </button>
+        <button data-tab="condiment_produk"
+            class="tab-btn flex items-center gap-2 px-4 py-2 rounded-t-lg text-gray-500 hover:text-primary transition">
+            <img src="/img/svg/topping.svg" class="max-w-[24px]"></span>
+            Condiment Produk
         </button>
 
     </div>
@@ -23,6 +28,9 @@
     </div>
     <div id="variasi_produk" class="tab-content hidden">
         @include('admin.Components.produk.variasiprodukcomponent')
+    </div>
+    <div id="condiment_produk" class="tab-content hidden">
+       @include('admin.components.produk.condimentproduk')
     </div>
 @endsection
 

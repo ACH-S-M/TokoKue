@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('berat_bersih');
             $table->unsignedInteger('diameter_kue');
             $table->unsignedInteger('tinggi_kue');
-            $table->unsignedBigInteger('KD_TOPPING')->nullable();
-            $table->unsignedBigInteger('KD_RASA');
             $table->enum('ukuran_kue',['S','M','L','XL']);
             $table->foreign('KD_KUE')->references('KD_KUE')->on('kue');
         });

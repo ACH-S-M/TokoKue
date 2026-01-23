@@ -17,6 +17,9 @@ class KueModel extends Model
     ];
     public $timestamps = false;
 
+    public function variasi_kue(){
+        return $this->hasMany(Variasi::class,"KD_KUE","KD_KUE");
+    }
    
     use HasFactory;
 
