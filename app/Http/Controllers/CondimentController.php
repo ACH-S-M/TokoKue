@@ -66,6 +66,7 @@ class CondimentController extends Controller
     {
   
 
+
         $request->validate([
             'pilihan_kue' => 'required|exists:kue,KD_KUE',
             'rasa'        => 'nullable|array',
@@ -73,8 +74,14 @@ class CondimentController extends Controller
         ]);
 
         // ambil variasi yang dipilih (bukan cuma kue)
-        $variasiList = Variasi::whereIn('KD_VARIASI', $request->pilihan_kue)->get();
-        dd($variasiList);
+        /**
+         * Bukan cuma Variasi yang di ambil tapi KD kue yang sesuai. jadinya jika ada pilihan nanti. kue di pilih
+         * beserta dengan anakan Kd kue yang sesuai. misal KD kue 1 untuk Kd variasi 1 2 3 dimana mengandung variasi M L dan XL
+         * 
+         * 
+         */
+
+        $variasiList = Variasi::where('KD_KUE', $request->pilihan_kue)->get();
         foreach ($variasiList as $variasi) {
 
             if ($request->filled('rasa')) {

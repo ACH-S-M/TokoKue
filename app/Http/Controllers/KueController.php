@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\KueModel as Kue;
 use Illuminate\Http\Request;
 use App\Models\RasaModel as Rasa;
+use App\Models\VariasiKueModel as Variasi;
 use App\Models\ToppingModel as Topping;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,6 +13,8 @@ class KueController extends Controller
 {
     public function indexKue()
     {
+
+        $condiments = Variasi::with(['topping','rasa','kue'])->get();
         $kues = Kue::with([
             'variasi_kue' => function ($q) {
                 $q->select(
@@ -22,7 +25,7 @@ class KueController extends Controller
                     'tinggi_kue',
                     'ukuran_kue',
                     'berat_bersih',
-                )->with(['rasa', 'topping']);
+                );
             },
         ])->get([
             'KD_KUE',
@@ -34,7 +37,7 @@ class KueController extends Controller
         $rasalist = Rasa::all();
         $toppinglist = Topping::all();
         $getKue = null;
-        return view('admin.Layouts.produk', compact('kues', 'getKue','rasalist','toppinglist'));
+        return view('admin.Layouts.produk', compact('kues', 'getKue','rasalist','toppinglist','condiments'));
     }
 
     public function PostKue(Request $request)
