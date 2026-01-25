@@ -92,6 +92,6 @@ class CondimentController extends Controller
                 $variasi->topping()->syncWithoutDetaching($request->topping);
             }
         }
-        return back()->with('success', 'Condiment berhasil diterapkan ke variasi.');
+         return back()->with('success', 'Condiment berhasil ditambahkan di Variasinya .')->with('active_tab', 'condiment_produk');
     }
 }

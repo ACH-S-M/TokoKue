@@ -148,7 +148,10 @@
 
                              <td class="px-4 py-3 text-center">
                                  <div class="flex justify-center gap-2">
-                                     <a href="{{ route('admin.edit.produk', $kue->KD_KUE) }}"
+                                     <a href="{{ route('admin.edit.produk', [
+                                     'KD_KUE' => $kue->KD_KUE, 
+                                     'active_tab' => 'produk'
+                                     ]) }}"
                                          class="px-3 py-1.5 text-sm rounded-lg
                                           bg-blue-100 text-blue-700
                                           hover:bg-blue-600 hover:text-white transition">

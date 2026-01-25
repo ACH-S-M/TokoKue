@@ -17,7 +17,7 @@
              </div>
          </div>
      </div>
-     <div class="form flex gap-8 items-center bg-slate-500">
+     <div class="form flex gap-8 items-center">
          <!-- Card -->
          <div class="bg-white rounded-2xl shadow-md border p-10 w-9/12">
              <h1 class="text-xl font-bold mb-8 text-center ">Tambahkan Variasi Rasa dan Topping pada Kue</h1>

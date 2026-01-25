@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger("KD_TOPPING");
             $table->unsignedBigInteger("KD_VARIASI");
             $table->foreign("KD_TOPPING")->references("KD_TOPPING")->on("topping");
-            $table->foreign("KD_VARIASI")->references("KD_VARIASI")->on("variasi_kue");
+            $table->foreign("KD_VARIASI")->references("KD_VARIASI")->on("variasi_kue")->cascadeOnDelete();
         }); 
     }
 

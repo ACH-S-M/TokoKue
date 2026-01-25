@@ -22,20 +22,21 @@
         </button>
 
     </div>
-
-    <div id="produk" class="tab-content">
+ 
+    <div id="produk" class="tab-content" >
         @include('admin.Components.produk.produkcomponent')
     </div>
     <div id="variasi_produk" class="tab-content hidden">
         @include('admin.Components.produk.variasiprodukcomponent')
     </div>
     <div id="condiment_produk" class="tab-content hidden">
-        @include('admin.components.produk.condimentproduk')
+        @include('admin.Components.produk.condimentproduk')
     </div>
 @endsection
 
 @push('scripts')
-    <script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
         const buttons = document.querySelectorAll('.tab-btn')
         const contents = document.querySelectorAll('.tab-content')
 
@@ -75,10 +76,9 @@
             })
         })
 
-        // ⬇️ AUTO ACTIVE TAB DARI SESSION
-        document.addEventListener('DOMContentLoaded', () => {
-            const activeTab = "{{ session('active_tab', 'produk') }}"
-            activateTab(activeTab)
-        })
-    </script>
+        // auto active dari session
+        const activeTab = "{{ session('active_tab', 'produk') }}"
+        activateTab(activeTab)
+    })
+</script>
 @endpush

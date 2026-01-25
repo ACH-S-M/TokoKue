@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\Storage;
 
 class KueController extends Controller
 {
-    public function indexKue()
+    public function indexKue($KD_KUE = null, $KD_VARIASI = null)
     {
+        $condiments = Variasi::with(['topping', 'rasa', 'kue'])->get();
 
-        $condiments = Variasi::with(['topping','rasa','kue'])->get();
         $kues = Kue::with([
             'variasi_kue' => function ($q) {
                 $q->select(
@@ -34,11 +34,38 @@ class KueController extends Controller
             'stok',
             'jumlah_terjual',
         ]);
+
         $rasalist = Rasa::all();
         $toppinglist = Topping::all();
+
         $getKue = null;
-        return view('admin.Layouts.produk', compact('kues', 'getKue','rasalist','toppinglist','condiments'));
+        $getVariasi = null;
+        $activeTab = 'produk'; // default tab saya buat 
+       
+        if ($KD_KUE) {
+            $getKue = Kue::findOrFail($KD_KUE);
+            $activeTab = 'produk';
+        }
+
+        if ($KD_VARIASI) {
+            $getVariasi = Variasi::findOrFail($KD_VARIASI);
+            $activeTab = 'variasi_produk';
+        }
+
+        return view(
+            'admin.Layouts.produk',
+            compact(
+                'kues',
+                'condiments',
+                'rasalist',
+                'toppinglist',
+                'getKue',
+                'getVariasi',
+                'activeTab'
+            )
+        );
     }
+
 
     public function PostKue(Request $request)
     {
@@ -68,12 +95,15 @@ class KueController extends Controller
         return redirect()->route('admin.produk')->with('success', '0');
     }
 
-    public function editKue($KD_KUE)
+    public function editKue(Request $request,$KD_KUE)
     {
-        $getKue = Kue::findOrFail($KD_KUE);
-        $kues = Kue::all();
-
-        return view('admin.Layouts.produk', compact(['getKue', 'kues']));
+         session(['active_tab' => $request->active_tab ?? 'variasi_kue']);
+        return $this->indexKue($KD_KUE, null);
+    }
+    public function editVariasi(Request $request,$KD_VARIASI)
+    {
+        session(['active_tab' => $request->active_tab ?? 'produk']);
+        return $this->indexKue(KD_KUE: null, KD_VARIASI: $KD_VARIASI);
     }
 
     public function updateKue(Request $request, $KD_KUE)
@@ -87,4 +117,5 @@ class KueController extends Controller
 
         return redirect()->route('admin.produk')->with('success', '0');
     }
+   
 }

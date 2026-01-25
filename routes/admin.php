@@ -18,14 +18,19 @@ Route::post('/loginadmin', [Admin::class, 'Login'])->name('admin.post');
 Route::middleware([ 'adminAuth'])->group(function () {
     Route::get('/admindashboard', [Admin::class,'Index'])->name('admin.home');
     
-    // Ini untuk Kue
+    // Ini untuk Kue 
     Route::get('/produk', [Kue::class,'indexKue'])->name('admin.produk');
     Route::post('/produk',[Kue::class,'PostKue'])->name('admin.post.produk');
     Route::delete('/produk/Hapus/{kue}',[Kue::class,'deleteKue'])->name('admin.delete.produk');
     Route::get('/produk/edit/{KD_KUE}',[Kue::class,'editKue'])->name('admin.edit.produk');
     Route::put('/produk/update/{KD_KUE}', [Kue::class,'updateKue'])->name('admin.update.produk');
-    Route::post('/variasiproduk', [VariasiKue::class,'PostVariasiKue'])->name('admin.post.variasiproduk');
+  
 
+    //Ini untuk Variasi 
+    Route::post('/produk/variasi', [VariasiKue::class,'postVariasiKue'])->name('admin.post.variasiproduk');
+    Route::get('/produk/variasi/edit/{KD_VARIASI}',[Kue::class,'editVariasi'])->name('admin.edit.variasiproduk');
+    Route::put('produk/update/variasi/{KD_VARIASI}',[VariasiKue::class,'updateVariasiKue'])->name('admin.update.variasiproduk');
+    //ini untuk Condiment topping dan rasa
     Route::post('/produk/condiment',[CondimentController::class, 'postCondiment'])->name('admin.post.condiment');
     Route::post('/produk/condimentwithkue',[CondimentController::class, 'postCondimentWithVariasi'])->name('admin.post.condimentwithvariasi');
 

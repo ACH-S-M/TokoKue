@@ -19,7 +19,7 @@ return new class extends Migration
             $table->unsignedInteger('diameter_kue');
             $table->unsignedInteger('tinggi_kue');
             $table->enum('ukuran_kue',['S','M','L','XL']);
-            $table->foreign('KD_KUE')->references('KD_KUE')->on('kue');
+            $table->foreign('KD_KUE')->references('KD_KUE')->on('kue')->cascadeOnDelete();
         });
     }
 
