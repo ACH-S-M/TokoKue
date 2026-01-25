@@ -20,10 +20,8 @@ class VariasiKueController extends Controller
             'tinggi_kue'    => 'nullable|numeric|min:0',
             "satuan_berat" =>  'required|in:gram,kg',
         ]);
-        $KD_VARIASI = $validate['KD_KUE'] . $validate['ukuran_kue'];
         $beratFinal = $validate['berat_bersih'].' '.$validate['satuan_berat'];
         $variasiKue = Variasi::create([
-            'KD_VARIASI' => $KD_VARIASI,
             'KD_KUE' => $validate['KD_KUE'],
             'harga_kue' => $validate['harga_kue'],
             'berat_bersih' => $beratFinal,

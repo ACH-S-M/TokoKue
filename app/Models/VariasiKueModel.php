@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\KueModel as Kue;
+use App\Models\RasaModel as Rasa;
+use App\Models\ToppingModel as Topping;
 class VariasiKueModel extends Model
 {
     protected $primaryKey = 'KD_VARIASI';
@@ -24,8 +26,13 @@ class VariasiKueModel extends Model
         return $this->belongsTo(Kue::class,'KD_KUE','KD_KUE');
     }
     public function rasa(){
-        return $this->belongsToMany(RasaModel::class,'variasi_kue_rasa','KD_VARIASI','KD_RASA');
+        return $this->belongsToMany(Rasa::class,'variasi_kue_rasa','KD_VARIASI','KD_RASA');
     }
+    public function topping(){
+        return $this->belongsToMany(Topping::class,'variasi_kue_topping','KD_VARIASI','KD_TOPPING');
+    }
+
+
     use HasFactory;
 
 

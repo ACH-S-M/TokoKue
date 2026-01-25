@@ -4,31 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\KueModel as Kue;
 use Illuminate\Http\Request;
+use App\Models\RasaModel as Rasa;
+use App\Models\ToppingModel as Topping;
 use Illuminate\Support\Facades\Storage;
 
 class KueController extends Controller
 {
     public function indexKue()
     {
-        $kues = Kue::with(['variasi_kue' => function ($q) {
-            $q->select(
-                'KD_VARIASI',
-                'KD_KUE',
-                'harga_kue',
-                'diameter_kue',
-                'tinggi_kue',
-                'ukuran_kue',
-                'berat_bersih',
-            );
-        }])->get([
+        $kues = Kue::with([
+            'variasi_kue' => function ($q) {
+                $q->select(
+                    'KD_VARIASI',
+                    'KD_KUE',
+                    'harga_kue',
+                    'diameter_kue',
+                    'tinggi_kue',
+                    'ukuran_kue',
+                    'berat_bersih',
+                )->with(['rasa', 'topping']);
+            },
+        ])->get([
             'KD_KUE',
             'nama_kue',
             'deskripsi_kue',
             'stok',
             'jumlah_terjual',
         ]);
+        $rasalist = Rasa::all();
+        $toppinglist = Topping::all();
         $getKue = null;
-        return view('admin.Layouts.produk', compact('kues', 'getKue'));
+        return view('admin.Layouts.produk', compact('kues', 'getKue','rasalist','toppinglist'));
     }
 
     public function PostKue(Request $request)
@@ -38,7 +44,7 @@ class KueController extends Controller
             'gambar_kue' => 'required|image|max:2048',
         ]);
 
-        $filename = time().'_'.uniqid().'.'.$request->file('gambar_kue')->getClientOriginalExtension();
+        $filename = time() . '_' . uniqid() . '.' . $request->file('gambar_kue')->getClientOriginalExtension();
         $request->file('gambar_kue')->move(public_path('img/produk'), $filename);
 
         $kue = Kue::create(attributes: [
@@ -53,7 +59,7 @@ class KueController extends Controller
 
     public function deleteKue(Kue $kue)
     {
-        Storage::delete('/img/produk/'.$kue->gambar_kue);
+        Storage::delete('/img/produk/' . $kue->gambar_kue);
         $kue->delete();
 
         return redirect()->route('admin.produk')->with('success', '0');

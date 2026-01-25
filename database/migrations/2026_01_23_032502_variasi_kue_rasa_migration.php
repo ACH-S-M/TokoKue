@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create("variasi_kue_rasa",function(Blueprint $table) {
            $table->unsignedBigInteger("KD_RASA");
-           $table->string("KD_VARIASI");
+           $table->unsignedBigInteger("KD_VARIASI");
            $table->foreign("KD_RASA")->references("KD_RASA")->on("rasa");
            $table->foreign("KD_VARIASI")->references("KD_VARIASI")->on("variasi_kue");
         });

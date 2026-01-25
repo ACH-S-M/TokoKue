@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create("variasi_kue", function (Blueprint $table) { 
-            $table->string('KD_VARIASI')->primary();
+            $table->bigIncrements('KD_VARIASI');
             $table->unsignedBigInteger('KD_KUE');
             $table->unsignedBigInteger('harga_kue');
             $table->string('berat_bersih');

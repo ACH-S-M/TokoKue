@@ -21,38 +21,78 @@
 
      <div class="form flex gap-8 items-center">
          <!-- Card -->
-         <div class="bg-white rounded-2xl shadow-md border p-10 w-1/2">
+         <div class="bg-white rounded-2xl shadow-md border p-10 w-9/12">
              <h1 class="text-xl font-bold mb-8 text-center ">Tambahkan Variasi Rasa dan Topping pada Kue</h1>
              {{-- Metode form untuk menentukan apakah update atau delete  --}}
              <form method="POST" enctype="multipart/form-data" class="grid grid-cols-3 gap-8"
-                 action={{ $getKue ? route('admin.update.produk', $getKue->KD_KUE) : route('admin.post.produk') }}>
+                 action={{ route('admin.post.condimentwithvariasi') }}>
                  @csrf
-                 @if ($getKue)
-                     @method('PUT')
-                 @endif
+
                  <!-- LEFT: FORM -->
                  <div class="col-span-2 flex flex-col gap-6">
                      <!-- Nama Kue -->
                      <div class="flex flex-col gap-1">
                          <label class="text-sm font-semibold text-slate-700">
-                             Nama Kue <span class="text-red-500">*</span>
+                             Pilih Kue <span class="text-red-500">*</span>
                          </label>
-
-
+                         <select name="pilihan_kue" class="border rounded px-3 py-2">
+                             @foreach ($kues as $kue)
+                                 <option value="{{ $kue->KD_KUE }}">{{ $kue->nama_kue }}</option>
+                             @endforeach
+                         </select>
+                     </div>
+                     {{-- Pilih Ukuran --}}
+                     <div class="flex gap-6">
+                         <label class="font-semibold">Pilih Variasi</label>
+                         @foreach ($kues as $kue)
+                             @foreach ($kue->variasi_kue as $variasi )
+                             {{ dump($variasi->all()) }}
+                                 <label class="flex gap-2">
+                                 <input type="checkbox" name="variasi[]" value="{{ $variasi->KD_VARIASI}}">
+                                 {{ $variasi->ukuran_kue}}
+                             </label>
+                             @endforeach
+                         @endforeach
                      </div>
 
-                     <!-- Deskripsi -->
-                     <div class="flex flex-col gap-1">
-                         <label class="text-sm font-semibold text-slate-700">
-                             Deskripsi
+                     {{-- Pilihan Rasa --}}
+                     <div class="space-y-2">
+                         <label class="block text-sm font-semibold text-slate-700">
+                             Pilih Rasa <span class="text-red-500">* Minimal pilih satu</span>
                          </label>
-                         <textarea name="deskripsi_kue" rows="5"
-                             placeholder="Ceritakan keunikan kue ini, rasa, tekstur, atau bahan unggulan..."
-                             class="border rounded-xl px-4 py-3
-                           focus:ring-2 focus:ring-blue-500 focus:outline-none
-                           resize-none transition">{{ old('deskripsi_kue', $getKue?->deskripsi_kue) }}</textarea>
-                     </div>
 
+                         <div class="grid grid-cols-4 gap-3">
+                             @foreach ($rasalist as $item)
+                                 <label
+                                     class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50">
+                                     <input type="checkbox" name="rasa[]" value="{{ $item->KD_RASA }}"
+                                         class="rounded text-primary focus:ring-primary">
+                                     <span class="text-sm text-slate-700 font-semibold">
+                                         {{ $item->nama_rasa }}
+                                     </span>
+                                 </label>
+                             @endforeach
+                         </div>
+                     </div>
+                     {{-- Topping kue  --}}
+                     <div class="space-y-2">
+                         <label class="block text-sm font-semibold text-slate-700">
+                             Pilih Rasa <span class="text-red-500">* Minimal pilih satu</span>
+                         </label>
+
+                         <div class="grid grid-cols-4 gap-3">
+                             @foreach ($toppinglist as $item)
+                                 <label
+                                     class="flex items-center gap-2 p-2 border rounded-lg cursor-pointer hover:bg-slate-50">
+                                     <input type="checkbox" name="topping[]" value="{{ $item->KD_TOPPING }}"
+                                         class="rounded text-primary focus:ring-primary">
+                                     <span class="text-sm text-slate-700 font-semibold">
+                                         {{ $item->nama_topping }}
+                                     </span>
+                                 </label>
+                             @endforeach
+                         </div>
+                     </div>
                      <!-- Action -->
                      <div class="flex gap-3 pt-2">
                          <button type="submit"

@@ -26,7 +26,8 @@ Route::middleware([ 'adminAuth'])->group(function () {
     Route::put('/produk/update/{KD_KUE}', [Kue::class,'updateKue'])->name('admin.update.produk');
     Route::post('/variasiproduk', [VariasiKue::class,'PostVariasiKue'])->name('admin.post.variasiproduk');
 
-    Route::post('/produk/condiment',[CondimentController::class, 'store'])->name('admin.post.condiment');
+    Route::post('/produk/condiment',[CondimentController::class, 'postCondiment'])->name('admin.post.condiment');
+    Route::post('/produk/condimentwithkue',[CondimentController::class, 'postCondimentWithVariasi'])->name('admin.post.condimentwithvariasi');
 
     //untuk Logout 
 Route::post('/logoutadmin', [Admin::class, 'Logout'])->name('admin.logout');

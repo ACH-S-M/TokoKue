@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('detail_pesanan',function(Blueprint $table) {
-            $table->string('KD_VARIASI');
+            $table->unsignedBigInteger('KD_VARIASI');
             $table->string('NO_PESANAN');
             $table->unsignedBigInteger('jumlah_pesanan');
             $table->unsignedBigInteger('harga_satuan');
