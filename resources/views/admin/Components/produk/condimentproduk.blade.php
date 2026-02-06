@@ -146,6 +146,7 @@
                  <thead>
                      <tr class="bg-slate-50 text-left text-sm text-slate-600">
                          <th class="px-4 py-3 font-semibold">Nama Kue</th>
+                         <th class="px-4 py-3 font-semibold">Ukuran Kue</th>
                          <th class="px-4 py-3 font-semibold">Rasa Kue</th>
                          <th class="px-4 py-3 font-semibold">Pilihan Topping</th>
                          <th class="px-4 py-3 font-semibold">Harga Pertopping</th>
@@ -155,13 +156,11 @@
                  <tbody class="divide-y">
                      @forelse($condiments as $condiment)
                          <tr class="hover:bg-slate-50 transition">
-                             <td class="px-4 py-3 text-sm text-slate-700">
-                                 @foreach ($kues as $kue)
-                                     {{ $kue->nama_kue }}
-                                 @endforeach
-                             </td>
                              <td class="px-4 py-3 font-medium text-slate-800">
                                  {{ $condiment->kue->nama_kue }}
+                             </td>
+                             <td class="px-4 py-3 font-medium text-slate-800">
+                                 {{ $condiment->ukuran_kue }}
                              </td>
                              <td class="px-4 py-3 font-medium text-slate-800">
                                  @forelse ($condiment->topping as $topping)

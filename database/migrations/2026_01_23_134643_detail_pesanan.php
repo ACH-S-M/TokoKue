@@ -15,7 +15,7 @@ return new class extends Migration
             $table->unsignedBigInteger('KD_VARIASI');
             $table->string('NO_PESANAN');
             $table->unsignedBigInteger('jumlah_pesanan');
-            $table->unsignedBigInteger('harga_satuan');
+            $table->unsignedBigInteger('harga_saat_ini');
             $table->foreign('KD_VARIASI')->references('KD_VARIASI')->on('variasi_kue');
             $table->foreign('NO_PESANAN')->references('NO_PESANAN')->on('pesanan');
         });

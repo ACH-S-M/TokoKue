@@ -80,7 +80,7 @@
                      <div class="flex gap-3">
                          <input type="number" name="berat_bersih" class="border p-2 rounded-md"
                              value="{{ old('berat_bersih', $berat ?? '') }}">
-                         <select name="satuan_berat">
+                         <select name="satuan_berat" class="p-2 border rounded-md">
                              <option value="gram"
                                  {{ old('satuan_berat', $satuan ?? '') == 'gram' ? 'selected' : '' }}>
                                  Gram</option>

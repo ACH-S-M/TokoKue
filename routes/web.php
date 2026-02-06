@@ -36,7 +36,7 @@ Route::prefix('auth')->group(function () {
 
 Route::middleware(['auth:pelanggan','pelangganAuth'])->group(function () {
     Route::get('/keranjang',[Keranjang::class,'Index'])->name('Keranjang');
-    
+    Route::post('/keranjang/{KD_PRODUK}',[Keranjang::class,'Store'])->name('Keranjang.store');
 });
 
 
