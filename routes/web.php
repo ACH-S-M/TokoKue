@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController as Auth;
 use App\Http\Controllers\KeranjangController as Keranjang;
+use App\Http\Controllers\KueController as Kue;
 use App\Http\Controllers\WebController as Web;
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +20,7 @@ use App\Http\Controllers\WebController as Web;
 
 Route::get('/', [Web::class,'Index'])->name('home');
 Route::get('/produk/detail/{KD_PRODUK}',[Web::class,'DetailProduk'])->name('detailproduk');
-
+Route::post('/Search',[Kue::class, 'searchkue'])->name('kue.search');
 // Group route auth
 Route::prefix('auth')->group(function () {
     // Menampilkan form

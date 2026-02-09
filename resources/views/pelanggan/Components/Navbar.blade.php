@@ -35,7 +35,7 @@
                 </div>
                 <nav class="hidden md:flex items-center gap-8 ">
                     <a class="text-[#0d171b] text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest"
-                        href="#">Shop</a>
+                        href={{ route('home') }}>Menu</a>
                     <a class="text-[#0d171b] text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest"
                         href="#">About</a>
                     <a class="text-[#0d171b] text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest"
@@ -46,11 +46,15 @@
                 <label class="hidden lg:flex flex-col min-w-96">
                     <div class="flex w-full rounded-full h-full p-2 items-center bg-slate-200 px-4">
                         <img src="/img/svg/cari.svg" class="w-[20px] mr-4">
-                        <input
-                            class="form-input w-full border-none py-2 text-sm
-                                   focus:outline-none focus:ring-0 focus:border-transparent
-                                 placeholder:text-slate-400 bg-transparent"
-                            placeholder="Find a treat..." />
+                        <form action={{ route('kue.search') }} method="post">
+                                @csrf
+                                <input
+                                        name="search"
+                                        class="form-input w-full border-none py-2 text-sm
+                                        focus:outline-none focus:ring-0 focus:border-transparent
+                                      placeholder:text-slate-400 bg-transparent"
+                                        placeholder="Find a treat..." />
+                        </form>
                     </div>
                 </label>
                 <a

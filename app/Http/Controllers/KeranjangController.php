@@ -1,9 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\VariasiKueModel as Variasi;
 use App\Models\KeranjangModel as Keranjang;
 
@@ -62,8 +60,6 @@ class KeranjangController extends Controller
             $item->update(['qty' => $newQty]);
             return redirect()->back()->with('success');
         }
-
-        return back();
     }
     public function Delete($KD_VARIASI)
     {

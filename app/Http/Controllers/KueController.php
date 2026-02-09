@@ -117,5 +117,9 @@ class KueController extends Controller
 
         return redirect()->route('admin.produk')->with('success', '0');
     }
+    function searchKue(Request $request){
+        $kues = Kue::with('variasi_kue.topping')->where('nama_kue','LIKE', $request->search .'%')->get();
+        return view('pelanggan.Layouts.hasilcari',compact('kues'));
+    }
    
 }
