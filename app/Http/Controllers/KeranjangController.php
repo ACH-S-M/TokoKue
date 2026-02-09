@@ -12,8 +12,8 @@ class KeranjangController extends Controller
     function Index()
     {
         $idUser = auth('pelanggan')->user()->ID_PELANGGAN;
-        $keranjang = Keranjang::with('variasi_kue_keranjang.kue')->where('ID_PELANGGAN', '=',$idUser)->get();
-        return view("pelanggan.Layouts.keranjang",compact(['keranjang']));
+        $keranjang = Keranjang::with('variasi_kue_keranjang.kue')->where('ID_PELANGGAN', '=', $idUser)->get();
+        return view("pelanggan.Layouts.keranjang", compact(['keranjang']));
     }
     // Store Ke keranjang
     function store($KD_PRODUK, Request $request)
@@ -39,7 +39,37 @@ class KeranjangController extends Controller
                 return redirect()->route('Keranjang')->with('success', '22');
             }
         } catch (\Exception $e) {
-             
         }
+    }
+
+    public function Update(Request $request, $KD_VARIASI)
+    {
+
+        $request->validate([
+            'qty_change' => 'required|in:-1,1'
+        ]);
+
+        $item = Keranjang::where('ID_PELANGGAN', auth('pelanggan')->user()->ID_PELANGGAN)
+            ->where('KD_VARIASI', $KD_VARIASI)
+            ->firstOrFail();
+
+        $newQty = $item->qty + $request->qty_change;
+
+        if ($newQty <= 0) {
+            $item->delete();
+            return redirect()->back()->with('success','item berhasil dihapus dari keranjang');
+        } else {
+            $item->update(['qty' => $newQty]);
+            return redirect()->back()->with('success');
+        }
+
+        return back();
+    }
+    public function Delete($KD_VARIASI)
+    {
+        $item = Keranjang::where('ID_PELANGGAN', auth('pelanggan')->user()->ID_PELANGGAN)
+        ->where('KD_VARIASI',$KD_VARIASI)->firstOrFail();
+        $item->delete();
+        return redirect()->back();
     }
 }

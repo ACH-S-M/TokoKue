@@ -37,6 +37,8 @@ Route::prefix('auth')->group(function () {
 Route::middleware(['auth:pelanggan','pelangganAuth'])->group(function () {
     Route::get('/keranjang',[Keranjang::class,'Index'])->name('Keranjang');
     Route::post('/keranjang/{KD_PRODUK}',[Keranjang::class,'Store'])->name('Keranjang.store');
+    Route::post('/keranjang/update/{KD_VARIASI}',[Keranjang::class,'Update'])->name('keranjang.update');
+    Route::delete('/keranjang/delete/{KD_VARIASI}',[Keranjang::class,'Delete'])->name('keranjang.delete');
 });
 
 
