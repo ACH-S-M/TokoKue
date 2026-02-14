@@ -12,7 +12,7 @@ class WebController extends Controller
          return view('pelanggan.Layouts.dashboard',compact('terpopuler'));
     }
     function DetailProduk($KD_KUE){
-        $thisproduk = Kue::with('variasi_kue')->findOrFail($KD_KUE);
+        $thisproduk = Kue::with(['variasi_kue.topping', 'variasi_kue.rasa'])->findOrFail($KD_KUE);
         return view('pelanggan.Layouts.detailproduk',compact('thisproduk'));
     }
 }

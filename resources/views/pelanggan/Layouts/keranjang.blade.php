@@ -5,125 +5,189 @@
 @endsection
 
 @section('content')
-    <div class="min-h-screen bg-gray-50 py-8">
-        <div class="max-w-7xl mx-auto px-4">
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-10">
+    <div class="max-w-7xl mx-auto px-4">
 
-            <h2 class="text-2xl font-semibold mb-6">🛒 Keranjang Saya</h2>
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">
+            Keranjang Saya
+        </h2>
 
-            {{-- GRID --}}
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
 
-                {{-- LEFT : LIST KERANJANG --}}
-                <div class="lg:col-span-2 space-y-4">
+            {{-- LEFT --}}
+            <div class="lg:col-span-2 space-y-6">
 
-                    @forelse ($keranjang as $item)
-                        <div class="bg-white rounded-2xl border shadow-sm hover:shadow-md transition">
-                            <div class="p-4 flex gap-4">
+                @forelse ($keranjang as $item)
+                <div class="bg-white rounded-3xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100">
+                    <div class="p-6 flex gap-6">
 
-                                {{-- Gambar --}}
-                                <div class="w-28 h-28 flex-shrink-0">
-                                    <img src="{{ asset('/img/produk/' . $item->variasi_kue_keranjang->kue->gambar_kue) }}"
-                                        alt="{{ $item->variasi_kue_keranjang->kue->nama_kue }}"
-                                        class="w-full h-full object-cover rounded-xl" />
-                                </div>
-
-                                {{-- Info --}}
-                                <div class="flex-1 flex flex-col justify-between">
-
-                                    <div>
-                                        <h3 class="text-lg font-semibold text-gray-800">
-                                            {{ $item->variasi_kue_keranjang->kue->nama_kue }}
-                                        </h3>
-                                        <p class="text-sm text-gray-500">
-                                            Ukuran: {{ $item->variasi_kue_keranjang->ukuran_kue }}
-                                        </p>
-                                    </div>
-                                    {{-- Bottom row --}}
-                                    <div class="flex items-center justify-between mt-3">
-
-                                        {{-- Qty --}}
-                                        <div class="flex items-center gap-3">
-                                            <Form action={{ route('keranjang.update', $item->KD_VARIASI) }} method="POST">
-                                                @csrf
-                                                <input type="hidden" name="qty_change" value="-1" >
-                                                <button type="submit"
-                                                    class="w-9 h-9 rounded-full border text-gray-600 hover:bg-gray-100 transition">
-                                                    -
-                                                </button>
-                                            </Form>
-
-                                            <input type="number" value="{{ $item->qty }}" readonly
-                                                class="w-12 h-9 border rounded text-center bg-gray-50 appearance-none" />
-
-                                            <Form action={{ route('keranjang.update', $item->KD_VARIASI) }} method="POST">
-                                                @csrf
-                                                <input type="hidden" name="qty_change" value="1" >
-                                                <button type="submit"
-                                                    class="w-9 h-9 rounded-full border text-gray-600 hover:bg-gray-100 transition">
-                                                    +
-                                                </button>
-                                            </Form>
-                                        </div>
-
-                                        {{-- Price & delete --}}
-                                        <div class="flex items-center gap-6">
-                                            <span class="font-semibold text-gray-800">
-                                                Rp {{ number_format($item->variasi_kue_keranjang->harga_kue, 0, ',', '.') }}
-                                            </span>
-                                            {{-- Delete --}}
-                                            <form action={{ route('keranjang.delete',$item->KD_VARIASI) }} method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="text-sm text-red-500 hover:text-red-600" type="submit">
-                                                     Hapus
-                                                </button>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
+                        {{-- Image --}}
+                        <div class="w-32 h-32 flex-shrink-0">
+                            <img src="{{ asset('/img/produk/' . $item->variasi_kue_keranjang->kue->gambar_kue) }}"
+                                 class="w-full h-full object-cover rounded-2xl shadow-sm" />
                         </div>
-                    @empty
-                        <div class="bg-blue-50 text-blue-600 rounded-lg p-4 text-center">
-                            Keranjang masih kosong 😢
-                        </div>
-                    @endforelse
-                </div>
 
-                {{-- RIGHT : CHECKOUT --}}
-                @if (count($keranjang))
-                    <div class="lg:col-span-1">
-                        <div class="bg-white rounded-2xl border shadow-sm p-6 sticky top-6">
+                        {{-- Content --}}
+                        <div class="flex-1 flex flex-col justify-between">
 
-                            <h3 class="text-lg font-semibold mb-4">Ringkasan Belanja</h3>
+                            <div>
+                                <h3 class="text-xl font-semibold text-gray-800">
+                                    {{ $item->variasi_kue_keranjang->kue->nama_kue }}
+                                </h3>
 
-                            <div class="flex justify-between mb-2 text-gray-600">
-                                <span>Total Item</span>
-                                <span>{{ $keranjang->sum('qty') }}</span>
-                            </div>
-
-                            <div class="flex justify-between mb-4 text-gray-800 font-semibold">
-                                <span>Total Harga</span>
-                                <span class="text-blue-600">
-                                    Rp
-                                    {{ number_format($keranjang->sum(fn($i) => $i->qty * $i->variasi_kue_keranjang->harga_kue), 0, ',', '.') }}
+                                <span class="inline-block mt-2 px-3 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
+                                    Ukuran: {{ $item->variasi_kue_keranjang->ukuran_kue }}
                                 </span>
+
+                                {{-- Display selected Rasa --}}
+                                @if($item->rasa->count() > 0)
+                                    <div class="mt-2">
+                                        <p class="text-xs text-gray-500 mb-1">Rasa:</p>
+                                        <div class="flex gap-2 flex-wrap">
+                                            @foreach($item->rasa as $r)
+                                                <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                                                    {{ $r->nama_rasa }}
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+
+                                {{-- Display selected Toppings --}}
+                                @if($item->topping->count() > 0)
+                                    <div class="mt-2">
+                                        <p class="text-xs text-gray-500 mb-1">Topping:</p>
+                                        <div class="flex gap-2 flex-wrap">
+                                            @foreach($item->topping as $t)
+                                                <span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">
+                                                    {{ $t->nama_topping }} (+Rp {{ number_format($t->biaya_tambahan, 0, ',', '.') }})
+                                                </span>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
 
-                            <button
-                                class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition">
-                                Checkout
-                            </button>
+                            <div class="flex items-center justify-between mt-5">
 
-                            <p class="text-xs text-gray-400 text-center mt-3">
-                                Aman & terpercaya ✨
-                            </p>
+                                {{-- Qty --}}
+                                <div class="flex items-center bg-gray-50 rounded-full px-2 py-1 shadow-inner">
+                                    <form action="{{ route('keranjang.update', $item->KD_VARIASI) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="qty_change" value="-1">
+                                        <button type="submit"
+                                            class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition">
+                                            -
+                                        </button>
+                                    </form>
+
+                                    <span class="w-10 text-center font-semibold">
+                                        {{ $item->qty }}
+                                    </span>
+
+                                    <form action="{{ route('keranjang.update', $item->KD_VARIASI) }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="qty_change" value="1">
+                                        <button type="submit"
+                                            class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-200 transition">
+                                            +
+                                        </button>
+                                    </form>
+                                </div>
+
+                                {{-- Price --}}
+                                @php
+                                    $basePrice = $item->variasi_kue_keranjang->harga_kue;
+                                    $toppingPrice = $item->topping->sum('biaya_tambahan');
+                                    $itemTotal = ($basePrice + $toppingPrice) * $item->qty;
+                                @endphp
+                                <div class="text-right">
+                                    <div class="flex gap-4 items-center">
+                                        <p>Harga Kue : </p>
+                                        <p class="text-sm text-gray-500">
+                                        Rp {{ number_format($basePrice, 0, ',', '.') }}
+                                    </p>
+                                    </div>
+                                    @if($toppingPrice > 0)
+                                        <div class="flex gap-4 items-center text-sm">
+                                            <p>Topping : </p>
+                                            <p class="text-sm text-gray-500">
+                                                Rp {{ number_format($toppingPrice, 0, ',', '.') }}
+                                            </p>
+                                        </div>
+                                    @endif
+                                    <p class="text-lg font-bold text-blue-600">
+                                       Total :  Rp {{ number_format($itemTotal, 0, ',', '.') }}
+                                    </p>
+                                </div>
+
+                                {{-- Delete --}}
+                                <form action="{{ route('keranjang.delete', $item->KD_VARIASI) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit"
+                                        class="text-red-400 hover:text-red-600 text-sm font-medium transition">
+                                        Hapus
+                                    </button>
+                                </form>
+
+                            </div>
                         </div>
                     </div>
-                @endif
-
+                </div>
+                @empty
+                <div class="bg-white rounded-3xl p-10 text-center shadow-sm border">
+                    <p class="text-gray-500 text-lg">Keranjang masih kosong</p>
+                    <a href="/" class="mt-4 inline-block bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-blue-700 transition">
+                        Belanja Sekarang
+                    </a>
+                </div>
+                @endforelse
             </div>
+
+            {{-- RIGHT --}}
+            @if (count($keranjang))
+            <div>
+                <div class="bg-white rounded-3xl shadow-lg p-8  border border-gray-100 sticky top-30">
+
+                    <h3 class="text-xl font-bold mb-6 text-gray-800">
+                        Ringkasan Belanja
+                    </h3>
+
+                    <div class="flex justify-between text-gray-600 mb-3">
+                        <span>Total Item</span>
+                        <span class="font-semibold">{{ $keranjang->sum('qty') }}</span>
+                    </div>
+
+                    <div class="flex justify-between text-gray-800 font-bold text-lg mb-6">
+                        <span>Total Harga</span>
+                        @php
+                            $grandTotal = $keranjang->sum(function($item) {
+                                $basePrice = $item->variasi_kue_keranjang->harga_kue;
+                                $toppingPrice = $item->topping->sum('biaya_tambahan');
+                                return ($basePrice + $toppingPrice) * $item->qty;
+                            });
+                        @endphp
+                        <span class="text-blue-600">
+                            Rp {{ number_format($grandTotal, 0, ',', '.') }}
+                        </span>
+                    </div>
+
+                    <form action={{ route('pesanan') }}>
+                        <button
+                        class="w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-lg hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-md">
+                        Checkout Sekarang
+                    </button>
+                    </form>
+
+                    <p class="text-xs text-gray-400 text-center mt-4">
+                        Transaksi aman & terpercaya ✨
+                    </p>
+                </div>
+            </div>
+            @endif
+
         </div>
     </div>
+</div>
 @endsection

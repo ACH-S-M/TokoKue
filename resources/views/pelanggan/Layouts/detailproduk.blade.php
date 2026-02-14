@@ -80,11 +80,14 @@
                                     type="radio"
                                     name="KD_VARIASI"
                                     value="{{ $variasi->KD_VARIASI }}"
-                                    class="hidden peer"
+                                    class="hidden peer variasi-radio"
                                     data-harga="{{ $variasi->harga_kue }}"
                                     data-berat="{{ $variasi->berat_bersih }}"
                                     data-tinggi="{{ $variasi->tinggi_kue }}"
                                     data-diameter="{{ $variasi->diameter_kue }}"
+                                    data-variasi-id="{{ $variasi->KD_VARIASI }}"
+                                    data-toppings='@json($variasi->topping->pluck("KD_TOPPING"))'
+                                    data-rasa='@json($variasi->rasa->pluck("KD_RASA"))'
                                     {{ $loop->first ? 'checked' : '' }}
                                 >
 
@@ -98,6 +101,22 @@
                                 </div>
                             </label>
                         @endforeach
+                    </div>
+                </div>
+
+                {{-- RASA --}}
+                <div class="space-y-3" id="rasa-section">
+                    <p class="font-semibold text-slate-900">Pilih Rasa</p>
+                    <div class="flex gap-3 flex-wrap" id="rasa-container">
+                        {{-- Will be populated by JavaScript --}}
+                    </div>
+                </div>
+
+                {{-- TOPPING --}}
+                <div class="space-y-3" id="topping-section">
+                    <p class="font-semibold text-slate-900">Pilih Topping <span class="text-sm text-gray-500">(Opsional)</span></p>
+                    <div class="grid grid-cols-1 gap-2" id="topping-container">
+                        {{-- Will be populated by JavaScript --}}
                     </div>
                 </div>
 
@@ -123,20 +142,98 @@ document.addEventListener('DOMContentLoaded', () => {
     const beratEl = document.getElementById('bb')
     const diameterEl = document.getElementById('diameter_kue')
     const tinggiEl = document.getElementById('tinggi_kue')
+    const rasaContainer = document.getElementById('rasa-container')
+    const toppingContainer = document.getElementById('topping-container')
 
-    function updateUI(radio) {
-        priceEl.innerText = 'Rp ' + Number(radio.dataset.harga).toLocaleString('id-ID')
-        diameterEl.innerText = radio.dataset.diameter + ' Cm'
-        tinggiEl.innerText = radio.dataset.tinggi + ' Cm'
-        beratEl.innerText = radio.dataset.berat
+    // Data topping dan rasa dari backend
+    const allToppings = @json($thisproduk->variasi_kue->flatMap(fn($v) => $v->topping)->unique('KD_TOPPING')->values());
+    const allRasa = @json($thisproduk->variasi_kue->flatMap(fn($v) => $v->rasa)->unique('KD_RASA')->values());
+
+    let basePrice = 0;
+
+    function updatePrice() {
+        let total = basePrice;
+        
+        // Tambahkan harga topping yang dipilih
+        document.querySelectorAll('.topping-checkbox:checked').forEach(cb => {
+            total += parseInt(cb.dataset.price);
+        });
+
+        priceEl.innerText = 'Rp ' + total.toLocaleString('id-ID');
     }
 
-    document.querySelectorAll('input[name="KD_VARIASI"]').forEach(radio => {
-        radio.addEventListener('change', () => updateUI(radio))
-    })
+    function updateAvailableOptions(radio) {
+        const availableToppings = JSON.parse(radio.dataset.toppings);
+        const availableRasa = JSON.parse(radio.dataset.rasa);
 
-    const checked = document.querySelector('input[name="KD_VARIASI"]:checked')
-    if (checked) updateUI(checked)
-})
+        // Update Rasa
+        rasaContainer.innerHTML = '';
+        allRasa.forEach(rasa => {
+            if (availableRasa.includes(rasa.KD_RASA)) {
+                rasaContainer.innerHTML += `
+                    <label class="cursor-pointer">
+                        <input
+                            type="checkbox"
+                            name="rasa[]"
+                            value="${rasa.KD_RASA}"
+                            class="hidden peer rasa-checkbox"
+                        >
+                        <div class="px-4 py-2 rounded-full border border-gray-300
+                            peer-checked:bg-green-600 peer-checked:text-white peer-checked:border-green-600
+                            hover:border-green-500 transition-all duration-200">
+                            ${rasa.nama_rasa}
+                        </div>
+                    </label>
+                `;
+            }
+        });
+
+        // Update Topping
+        toppingContainer.innerHTML = '';
+        allToppings.forEach(topping => {
+            if (availableToppings.includes(topping.KD_TOPPING)) {
+                const price = parseInt(topping.biaya_tambahan);
+                toppingContainer.innerHTML += `
+                    <label class="cursor-pointer flex items-center justify-between p-3 rounded-lg border border-gray-300
+                        hover:border-blue-500 has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50 transition-all">
+                        <div class="flex items-center gap-3">
+                            <input
+                                type="checkbox"
+                                name="toppings[]"
+                                value="${topping.KD_TOPPING}"
+                                data-price="${price}"
+                                class="topping-checkbox w-4 h-4 text-blue-600 rounded focus:ring-blue-500"
+                            >
+                            <span class="font-medium text-slate-800">${topping.nama_topping}</span>
+                        </div>
+                        <span class="text-blue-600 font-semibold">+Rp ${price.toLocaleString('id-ID')}</span>
+                    </label>
+                `;
+            }
+        });
+
+        // Re-attach event listeners untuk topping checkboxes
+        document.querySelectorAll('.topping-checkbox').forEach(cb => {
+            cb.addEventListener('change', updatePrice);
+        });
+    }
+
+    function updateUI(radio) {
+        basePrice = Number(radio.dataset.harga);
+        diameterEl.innerText = radio.dataset.diameter + ' Cm';
+        tinggiEl.innerText = radio.dataset.tinggi + ' Cm';
+        beratEl.innerText = radio.dataset.berat;
+        
+        updateAvailableOptions(radio);
+        updatePrice();
+    }
+
+    document.querySelectorAll('.variasi-radio').forEach(radio => {
+        radio.addEventListener('change', () => updateUI(radio));
+    });
+
+    const checked = document.querySelector('.variasi-radio:checked');
+    if (checked) updateUI(checked);
+});
 </script>
 @endsection

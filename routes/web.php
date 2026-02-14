@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController as Auth;
 use App\Http\Controllers\KeranjangController as Keranjang;
 use App\Http\Controllers\KueController as Kue;
 use App\Http\Controllers\WebController as Web;
+use App\Http\Controllers\pesananController as Pesanan;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +27,6 @@ Route::prefix('auth')->group(function () {
     // Menampilkan form
     Route::get('/daftar', function () { return view('pelanggan.daftar'); })->name('daftar');
     Route::get('/login', function () { return view('pelanggan.masuk'); })->name('login');
-
     // Proses form
     Route::post('/daftar', [Auth::class, 'Register'])->name('daftar.post');
     Route::post('/login', [Auth::class, 'Login'])->name('login.post');
@@ -36,10 +36,14 @@ Route::prefix('auth')->group(function () {
 //ini kalo sudah terauthentikasi sebagai auth dan juga ini bukan admin 
 
 Route::middleware(['auth:pelanggan','pelangganAuth'])->group(function () {
+    // ini buat keranjang , Tambah keranjang, hapus, update 
     Route::get('/keranjang',[Keranjang::class,'Index'])->name('Keranjang');
     Route::post('/keranjang/{KD_PRODUK}',[Keranjang::class,'Store'])->name('Keranjang.store');
     Route::post('/keranjang/update/{KD_VARIASI}',[Keranjang::class,'Update'])->name('keranjang.update');
     Route::delete('/keranjang/delete/{KD_VARIASI}',[Keranjang::class,'Delete'])->name('keranjang.delete');
+
+    //Ini buat Route checkout 
+    Route::get('/pesanan',[Pesanan::class,'Index'])->name('pesanan');
 });
 
 
