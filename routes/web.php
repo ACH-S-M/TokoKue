@@ -43,7 +43,7 @@ Route::middleware(['auth:pelanggan','pelangganAuth'])->group(function () {
     Route::delete('/keranjang/delete/{KD_VARIASI}',[Keranjang::class,'Delete'])->name('keranjang.delete');
 
     //Ini buat Route checkout 
-    Route::get('/pesanan',[Pesanan::class,'Index'])->name('pesanan');
+    Route::get('/pesanan',[Pesanan::class,'Index'])->name('pesanan.add');
     Route::post('/pesanan',[Pesanan::class,'Checkout'])->name('pesanan.post');
 });
 

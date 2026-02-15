@@ -34,6 +34,11 @@ Route::middleware([ 'adminAuth'])->group(function () {
     Route::post('/produk/condiment',[CondimentController::class, 'postCondiment'])->name('admin.post.condiment');
     Route::post('/produk/condimentwithkue',[CondimentController::class, 'postCondimentWithVariasi'])->name('admin.post.condimentwithvariasi');
 
+
+    //Ini untuk handle pesanan dan juga melihat topping pesanan yang dipesan
+
+    Route::get('/kelolapesanan',[Admin::class,'PesananIndex'])->name('admin.pesanan');
+
     //untuk Logout 
 Route::post('/logoutadmin', [Admin::class, 'Logout'])->name('admin.logout');
 

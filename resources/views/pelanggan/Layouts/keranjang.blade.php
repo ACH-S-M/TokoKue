@@ -180,8 +180,10 @@
                                 </span>
                             </div>
 
-                            <form action={{ route('pesanan') }}>
+                            <form action={{ route('pesanan.add') }}>
+                                @csrf
                                 <button
+                                    type="submit"
                                     class="w-full bg-blue-600 text-white py-4 rounded-2xl font-semibold text-lg hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-md">
                                     Checkout Sekarang
                                 </button>

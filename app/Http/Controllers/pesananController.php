@@ -21,7 +21,7 @@ class pesananController extends Controller
         Config::$isSanitized = config('midtrans.is_sanitized');
         Config::$is3ds = config('midtrans.is_3ds');
     }
-
+    //Index dimana ini buat menampilkan form pesanan seperti nama penerima, alamat dll 
     function Index()
     {
         $user = auth()->guard("pelanggan")->user()->ID_PELANGGAN;
@@ -36,7 +36,7 @@ class pesananController extends Controller
             return ($basePrice + $toppingPrice) * $item->qty;
         });
 
-        return view("pelanggan.Layouts.Checkout", compact("keranjang", "grandTotal"));
+        return view("pelanggan.Layouts.checkout", compact("keranjang", "grandTotal"));
     }
 
     function Checkout(Request $request)

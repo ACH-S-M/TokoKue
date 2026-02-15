@@ -12,7 +12,7 @@ class DetailPesananModel extends Model
     protected $table = 'detail_pesanan';
     public $timestamps = false;
     public $incrementing = false;
-    
+
     protected $fillable = [
         'KD_VARIASI',
         'NO_PESANAN',
@@ -20,31 +20,30 @@ class DetailPesananModel extends Model
         'harga_saat_ini',
     ];
 
-    // Relation to Pesanan
+    // Relasi ke Pesanan 
     public function pesanan()
     {
         return $this->belongsTo(PesananModel::class, 'NO_PESANAN', 'NO_PESANAN');
     }
 
-    // Relation to VariasiKue
+    // Relasi ke VariasiKue
     public function variasi_kue()
     {
         return $this->belongsTo(VariasiKueModel::class, 'KD_VARIASI', 'KD_VARIASI');
     }
 
-    // Relation to Topping (many-to-many through pivot)
-    public function topping()
+    // Relasi ke Topping (many-to-many pivot)
+    public function detail_topping()  //ini diubah tadinya topping() jadi ke detail_topping
     {
-        return $this->belongsToMany(
-            ToppingModel::class,
-            'detail_pesanan_topping',
+        return $this->hasMany(
+            DetailPesananToppingModel::class,
             'NO_PESANAN',
-            'KD_TOPPING'
-        )->wherePivot('KD_VARIASI', $this->KD_VARIASI);
+            localKey: 'NO_PESANAN'
+        )->where('KD_VARIASI', $this->KD_VARIASI);
     }
 
-    // Relation to Rasa (many-to-many through pivot)
-    public function rasa()
+    // Relasi ke  Rasa (many-to-many pivot)
+    public function detail_rasa() //ini diubah tadinya rasa() jadi ke detail_rasa()
     {
         return $this->belongsToMany(
             RasaModel::class,

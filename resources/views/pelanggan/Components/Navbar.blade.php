@@ -15,10 +15,18 @@
 
 {{-- </div>
 </nav> --}}
-<div class="sticky top-0 z-50 w-full border-b border-solid border-[#e7eff3]  bg-white/80 glass-nav">
-    <div class="max-w-full mx-auto px-6 lg:px-10 ">
-        <header class="flex items-center justify-between h-20">
+<div class="sticky top-0 z-50 w-full border-b border-solid border-[#e7eff3] bg-white/80 glass-nav">
+    <div class="max-w-full mx-auto px-6 lg:px-10">
+        <header class="flex items-center justify-between h-20 relative">
             <div class="flex items-center gap-12">
+                {{-- Hamburger Button (Mobile Only) --}}
+                <button id="hamburger-btn" class="flex flex-col gap-1.5 md:hidden z-50 relative group">
+                    <span class="w-6 h-0.5 bg-[#0d171b] transition-all duration-300 origin-center"></span>
+                    <span class="w-6 h-0.5 bg-[#0d171b] transition-all duration-300 origin-center"></span>
+                    <span class="w-6 h-0.5 bg-[#0d171b] transition-all duration-300 origin-center"></span>
+                </button>
+
+                {{-- Logo --}}
                 <div class="flex items-center gap-3 text-primary">
                     <div class="size-8">
                         <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +41,9 @@
                     <h2 class="text-[#0d171b] text-xl font-extrabold leading-tight tracking-[-0.025em] uppercase">
                         Lumière</h2>
                 </div>
-                <nav class="hidden md:flex items-center gap-8 ">
+
+                {{-- Desktop Nav --}}
+                <nav class="hidden md:flex items-center gap-8">
                     <a class="text-[#0d171b] text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest"
                         href={{ route('home') }}>Menu</a>
                     <a class="text-[#0d171b] text-sm font-semibold hover:text-primary transition-colors uppercase tracking-widest"
@@ -42,18 +52,19 @@
                         href="#">Contact</a>
                 </nav>
             </div>
-            <div class="flex items-center gap-6 ">
+
+            <div class="flex items-center gap-6">
                 <label class="hidden lg:flex flex-col min-w-96">
                     <div class="flex w-full rounded-full h-full p-2 items-center bg-slate-200 px-4">
                         <img src="/img/svg/cari.svg" class="w-[20px] mr-4">
-                        <form action={{ route('kue.search') }} method="post">
-                                @csrf
-                                <input
-                                        name="search"
-                                        class="form-input w-full border-none py-2 text-sm
-                                        focus:outline-none focus:ring-0 focus:border-transparent
-                                      placeholder:text-slate-400 bg-transparent"
-                                        placeholder="Find a treat..." />
+                        <form action={{ route('kue.search') }} method="post" class="w-full">
+                            @csrf
+                            <input
+                                name="search"
+                                class="form-input w-full border-none py-2 text-sm
+                                focus:outline-none focus:ring-0 focus:border-transparent
+                                placeholder:text-slate-400 bg-transparent"
+                                placeholder="Find a treat..." />
                         </form>
                     </div>
                 </label>
@@ -62,8 +73,9 @@
                     class="flex items-center justify-center rounded-full size-10 bg-slate-100 text-[#0d171b] dark:text-white hover:bg-primary/20 transition-all">
                     <img src="/img/svg/shopingbag.svg" class="w-[22px] cursor-pointer">
                 </a>
-                @guest('pelanggan')
-                    <div class="flex items-center gap-3">
+                
+                <div class="hidden md:flex items-center gap-3">
+                    @guest('pelanggan')
                         <a href="{{ route('daftar') }}"
                             class="px-4 py-2 rounded-lg border border-blue-600 text-blue-600
                           hover:bg-blue-600 hover:text-white transition">
@@ -75,22 +87,107 @@
                           hover:bg-green-700 transition">
                             Login
                         </a>
+                    @endguest
+                    @auth('pelanggan')
+                        <div class="flex items-center justify-end gap-4">
+                            <span class="text-gray-700">
+                                Halo, <span class="font-semibold">{{ auth('pelanggan')->user()->nama_pelanggan }}</span>
+                            </span>
+                            <form action="{{ route('pelanggan.logout') }}" method="post">
+                                @csrf
+                                <button class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    @endauth
+                </div>
+            </div>
+        </header>
+
+        {{-- Mobile Menu Overlay --}}
+        <div id="mobile-menu" class="absolute top-20 left-0 w-full bg-white border-b border-[#e7eff3] shadow-lg flex flex-col p-6 gap-6 md:hidden transition-all duration-300 origin-top transform scale-y-0 opacity-0 pointer-events-none">
+            <nav class="flex flex-col gap-4">
+                <a class="text-[#0d171b] text-base font-semibold hover:text-primary transition-colors uppercase tracking-widest"
+                    href={{ route('home') }}>Menu</a>
+                <a class="text-[#0d171b] text-base font-semibold hover:text-primary transition-colors uppercase tracking-widest"
+                    href="#">About</a>
+                <a class="text-[#0d171b] text-base font-semibold hover:text-primary transition-colors uppercase tracking-widest"
+                    href="#">Contact</a>
+            </nav>
+            <div class="flex flex-col gap-4">
+                 <form action={{ route('kue.search') }} method="post" class="w-full">
+                    @csrf
+                    <div class="flex w-full rounded-full h-full p-2 items-center bg-slate-200 px-4">
+                        <img src="/img/svg/cari.svg" class="w-[20px] mr-4">
+                        <input
+                            name="search"
+                            class="form-input w-full border-none py-2 text-sm
+                            focus:outline-none focus:ring-0 focus:border-transparent
+                            placeholder:text-slate-400 bg-transparent"
+                            placeholder="Find a treat..." />
+                    </div>
+                </form>
+                
+                @guest('pelanggan')
+                    <div class="flex flex-col gap-3">
+                         <a href="{{ route('login') }}"
+                            class="w-full text-center px-4 py-2 rounded-lg bg-green-600 text-white
+                          hover:bg-green-700 transition">
+                            Login
+                        </a>
+                        <a href="{{ route('daftar') }}"
+                            class="w-full text-center px-4 py-2 rounded-lg border border-blue-600 text-blue-600
+                          hover:bg-blue-600 hover:text-white transition">
+                            Daftar
+                        </a>
                     </div>
                 @endguest
                 @auth('pelanggan')
-                    <div class="flex items-center justify-end gap-4 ">
+                    <div class="flex flex-col gap-4 border-t pt-4">
                         <span class="text-gray-700">
                             Halo, <span class="font-semibold">{{ auth('pelanggan')->user()->nama_pelanggan }}</span>
                         </span>
-                        <form action="{{ route('pelanggan.logout') }}" method="post">
+                        <form action="{{ route('pelanggan.logout') }}" method="post" class="w-full">
                             @csrf
-                            <button class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">
+                            <button class="w-full px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition">
                                 Logout
                             </button>
                         </form>
                     </div>
                 @endauth
             </div>
-        </header>
+        </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('hamburger-btn');
+        const menu = document.getElementById('mobile-menu');
+        const spans = btn.querySelectorAll('span');
+        let isOpen = false;
+
+        btn.addEventListener('click', () => {
+            isOpen = !isOpen;
+            
+            if (isOpen) {
+                // Animate to X
+                spans[0].classList.add('rotate-45', 'translate-y-2');
+                spans[1].classList.add('opacity-0');
+                spans[2].classList.add('-rotate-45', '-translate-y-2');
+                
+                // Show menu
+                menu.classList.remove('scale-y-0', 'opacity-0', 'pointer-events-none');
+            } else {
+                // Revert animation
+                spans[0].classList.remove('rotate-45', 'translate-y-2');
+                spans[1].classList.remove('opacity-0');
+                spans[2].classList.remove('-rotate-45', '-translate-y-2');
+                
+                // Hide menu
+                menu.classList.add('scale-y-0', 'opacity-0', 'pointer-events-none');
+            }
+        });
+    });
+</script>

@@ -10,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 
-<body class="min-h-screen font-[Figtree] bg-black">
+<body class="min-h-screen font-[Figtree] bg-white">
 
 <div class="grid lg:grid-cols-2 min-h-screen">
 
@@ -27,9 +27,9 @@
     </div>
 
     {{-- ================= RIGHT FORM ================= --}}
-    <div class="flex items-center justify-center bg-[#0f172a] px-6 py-12">
+    <div class="flex items-center justify-center bg-white px-6 py-12">
 
-        <div class="w-full max-w-md text-white">
+        <div class="w-full max-w-md text-gray-800">
 
             <div class="mb-10">
                 <h1 class="text-4xl font-bold mb-3">
@@ -41,12 +41,12 @@
                 </p>
             </div>
 
-            <form class="space-y-6" action="{{ route('daftar.post') }}" method="POST">
+            <form class="space-y-6 text-gray-800" action="{{ route('daftar.post') }}" method="POST" >
                 @csrf
 
                 {{-- Nama --}}
                 <div>
-                    <label class="block text-sm text-gray-300 mb-2">Nama Lengkap</label>
+                    <label class="block text-sm  mb-2 text-gray-800">Nama Lengkap</label>
                     <input type="text"
                            name="nama_pelanggan"
                            value="{{ old('nama_pelanggan') }}"
@@ -59,7 +59,7 @@
 
                 {{-- Email --}}
                 <div>
-                    <label class="block text-sm text-gray-300 mb-2">Email Address</label>
+                    <label class="block text-sm text-gray-800 mb-2 ">Email Address</label>
                     <input type="email"
                            name="email_pelanggan"
                            value="{{ old('email_pelanggan') }}"
@@ -72,7 +72,7 @@
 
                 {{-- Telepon --}}
                 <div>
-                    <label class="block text-sm text-gray-300 mb-2">Nomor Telepon</label>
+                    <label class="block text-sm text-gray-800 mb-2">Nomor Telepon</label>
                     <input type="tel"
                            name="telepon_pelanggan"
                            value="{{ old('telepon_pelanggan') }}"
@@ -85,7 +85,7 @@
 
                 {{-- Alamat --}}
                 <div>
-                    <label class="block text-sm text-gray-300 mb-2">Alamat</label>
+                    <label class="block text-sm text-gray-800 mb-2">Alamat</label>
                     <textarea name="alamat_pelanggan"
                               rows="2"
                               class="w-full bg-transparent border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 transition"
@@ -97,7 +97,7 @@
 
                 {{-- Password --}}
                 <div>
-                    <label class="block text-sm text-gray-300 mb-2">Password</label>
+                    <label class="block text-sm text-gray-800 mb-2">Password</label>
                     <input type="password"
                            name="password"
                            class="w-full bg-transparent border border-gray-700 rounded-lg px-4 py-3 focus:outline-none focus:border-emerald-500 transition"
@@ -111,14 +111,14 @@
 
                 {{-- Button --}}
                 <button type="submit"
-                        class="w-full bg-emerald-600 hover:bg-emerald-700 transition py-3 rounded-lg font-semibold shadow-lg">
+                        class="w-full bg-gray-900 hover:bg-gray-800 transition py-3 rounded-lg font-semibold shadow-lg text-white ">
                     Daftar
                 </button>
 
             </form>
 
             {{-- Footer --}}
-            <div class="mt-8 text-center text-gray-400 text-sm">
+            <div class="mt-8 text-center text-gray-800 text-sm">
                 Sudah punya akun?
                 <a href="{{ route('login') }}"
                    class="text-emerald-400 hover:underline font-medium">

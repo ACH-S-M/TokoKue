@@ -1,4 +1,4 @@
-<aside class=" inset-y-0 left-0 w-64 bg-blue-900 text-slate-200 flex flex-col z-20">
+<aside class=" inset-y-0 max-h-screen sticky left-0 w-64 bg-blue-900 text-slate-200 flex flex-col z-20">
 
     <!-- Brand -->
     <div class="px-6 py-5 border-b border-slate-800">
@@ -23,7 +23,7 @@
             <span class="text-sm">Kelola Produk</span>
         </a>
 
-        <a href="#"
+        <a href="{{ route('admin.pesanan') }}"
            class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition">
             <img class="w-[25px]  " src="/img/svg/pesanan.svg">
             <span class="text-sm">Pesanan</span>

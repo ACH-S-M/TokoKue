@@ -163,6 +163,15 @@
                                  {{ $condiment->ukuran_kue }}
                              </td>
                              <td class="px-4 py-3 font-medium text-slate-800">
+                                 @forelse ($condiment->rasa as $rasa)
+                                     <div class="flex justify-between text-sm">
+                                         <span>{{ $rasa->nama_rasa }}</span>
+                                     </div>
+                                 @empty
+                                     <span class="text-slate-400 italic">Tanpa topping</span>
+                                 @endforelse
+                             </td>
+                             <td class="px-4 py-3 font-medium text-slate-800">
                                  @forelse ($condiment->topping as $topping)
                                      <div class="flex justify-between text-sm">
                                          <span>{{ $topping->nama_topping }}</span>

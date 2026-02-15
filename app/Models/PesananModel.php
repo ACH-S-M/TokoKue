@@ -27,19 +27,22 @@ class PesananModel extends Model
         "catatan",
     ];
 
-    // Relation to Pelanggan
+    // Relasi Ke pelanggan
     public function pelanggan()
     {
         return $this->belongsTo(PelangganModel::class, 'ID_PELANGGAN', 'ID_PELANGGAN');
     }
 
-    // Relation to DetailPesanan
+    
+
+    // Relasi ke detail Pesanan / Many to many
     public function detail_pesanan()
     {
         return $this->hasMany(DetailPesananModel::class, 'NO_PESANAN', 'NO_PESANAN');
     }
 
-    // Generate unique order number
+
+    // Generate nomor Uniq sesuai tanggal contoh : ORD-20261202-001 
     public static function generateOrderNumber()
     {
         $date = date('Ymd');
