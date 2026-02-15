@@ -58,21 +58,6 @@
                 <div class="absolute inset-0 bg-gradient-to-t from-background-dark/60 via-transparent to-transparent">
                 </div>
             </div>
-            <div class="relative z-10 px-20 text-white">
-                <div class="mb-6 flex items-center gap-3">
-                    <div class="size-10 text-primary">
-                        <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path clip-rule="evenodd"
-                                d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
-                                fill="currentColor" fill-rule="evenodd"></path>
-                        </svg>
-                    </div>
-                    <span class="text-2xl font-bold tracking-tight">Artisan Crust</span>
-                </div>
-                <h1 class="text-5xl font-black leading-tight mb-4">The perfect brew, <br />every morning.</h1>
-                <p class="text-lg opacity-90 max-w-md">Experience the craft of small-batch baking and single-origin
-                    coffee right in the heart of the city.</p>
-            </div>
         </div>
 
         <div

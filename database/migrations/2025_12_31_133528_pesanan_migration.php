@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('kota');
             $table->string('provinsi');
             $table->string('kode_pos');
-            $table->enum('status',['belum_dibayar','diproses','dikirim','selesai','dibatalkan']);
+            $table->enum('status',['belum_dibayar','diproses','dikirim','selesai','dibatalkan'])->default('belum_dibayar');
             $table->unsignedinteger('total_harga');
-            $table->date('tanggal_pesanan')->use_current();
-            $table->text('catatan');
+            $table->timestamp('tanggal_pesanan')->useCurrent();
+            $table->text('catatan')->nullable();
         });
     }
 

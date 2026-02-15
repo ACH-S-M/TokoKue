@@ -44,7 +44,12 @@ Route::middleware(['auth:pelanggan','pelangganAuth'])->group(function () {
 
     //Ini buat Route checkout 
     Route::get('/pesanan',[Pesanan::class,'Index'])->name('pesanan');
+    Route::post('/pesanan',[Pesanan::class,'Checkout'])->name('pesanan.post');
 });
+
+// Midtrans callback (no auth required - called by Midtrans server)
+Route::post('/payment/callback', [Pesanan::class, 'callback'])->name('payment.callback');
+
 
 
 include 'admin.php';
