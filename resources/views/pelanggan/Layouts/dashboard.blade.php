@@ -19,7 +19,7 @@
         <div class="@container">
             <div class="relative flex min-h-[500px] md:min-h-[600px] flex-col gap-6 bg-cover bg-center bg-no-repeat rounded-2xl items-start justify-end p-6 md:p-16 overflow-hidden"
                 data-alt="icy blue aesthetic pastry on white marble"
-                style='background-image: linear-gradient(to top, rgba(16, 28, 34, 0.8) 0%, rgba(16, 28, 34, 0) 60%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwqe0KNo-IrBYbIDLtthOJ_SahHq-55nsI9Ym7gBvx-F_huOzMBfSasBs0szOHHQ5_gSJEraKmuc8mRV4Dj7vMvVmzG6AcXIUms-ZDK7qeTuUcOEWmVmh2wGKZ5WU0zRapVsyjiJMl-yS1ugs7kMzELIxS9jQg2d3Ernze8ZrdszzFHZrodyNVAC8C-Mm1qP-ewDYZIrZrPc2MLgmqjVKi55cXeWsVv5FpJZZ6UVMNe6rWOhhs1PMyH6G5AgSuPgAWhgjdjPMO54Q");'>
+                style='background-image: linear-gradient(to top, rgba(16, 28, 34, 0.8) 0%, rgba(16, 28, 34, 0) 80%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCwqe0KNo-IrBYbIDLtthOJ_SahHq-55nsI9Ym7gBvx-F_huOzMBfSasBs0szOHHQ5_gSJEraKmuc8mRV4Dj7vMvVmzG6AcXIUms-ZDK7qeTuUcOEWmVmh2wGKZ5WU0zRapVsyjiJMl-yS1ugs7kMzELIxS9jQg2d3Ernze8ZrdszzFHZrodyNVAC8C-Mm1qP-ewDYZIrZrPc2MLgmqjVKi55cXeWsVv5FpJZZ6UVMNe6rWOhhs1PMyH6G5AgSuPgAWhgjdjPMO54Q");'>
                 <div class="flex flex-col gap-4 max-w-xl w-full">
                     <h1 class="text-white text-3xl md:text-5xl font-bold leading-[1.1] tracking-[-0.04em] @[480px]:text-7xl">
                         Kue Premium
@@ -42,7 +42,7 @@
         </div>
     </section>
     {{-- Card Item --}}
-    <section class="px-8 py-6">
+    <section class="md:px-12 px-6 py-6">
         <h1 class="font-bold text-2xl mb-8">Kue Terpopuler Kami</h1>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">

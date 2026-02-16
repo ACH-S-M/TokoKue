@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class DetailPesananToppingModel extends Model
 {
     protected $table = "detail_pesanan_topping";
+    protected $fillable = ['detail_pesanan_id', 'NO_PESANAN', 'KD_VARIASI', 'KD_TOPPING'];
 
     public $timestamps = false;
 

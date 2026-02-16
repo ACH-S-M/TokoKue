@@ -11,7 +11,7 @@ class DetailPesananModel extends Model
 
     protected $table = 'detail_pesanan';
     public $timestamps = false;
-    public $incrementing = false;
+    // public $incrementing = false; // Now using ID
 
     protected $fillable = [
         'KD_VARIASI',
@@ -33,23 +33,22 @@ class DetailPesananModel extends Model
     }
 
     // Relasi ke Topping (many-to-many pivot)
-    public function detail_topping()  //ini diubah tadinya topping() jadi ke detail_topping
+    public function detail_topping()  
     {
         return $this->hasMany(
             DetailPesananToppingModel::class,
-            'NO_PESANAN',
-            localKey: 'NO_PESANAN'
-        )->where('KD_VARIASI', $this->KD_VARIASI);
+            'detail_pesanan_id', // Foreign key on detail_pesanan_topping table
+            'id' // Local key on detail_pesanan table
+        );
     }
 
     // Relasi ke  Rasa (many-to-many pivot)
-    public function detail_rasa() //ini diubah tadinya rasa() jadi ke detail_rasa()
+    public function detail_rasa() 
     {
-        return $this->belongsToMany(
-            RasaModel::class,
-            'detail_pesanan_rasa',
-            'NO_PESANAN',
-            'KD_RASA'
-        )->wherePivot('KD_VARIASI', $this->KD_VARIASI);
+        return $this->hasMany(
+            DetailPesananRasaModel::class, // Assuming this model exists or we use DB table
+            'detail_pesanan_id',
+            'id'
+        );
     }
 }

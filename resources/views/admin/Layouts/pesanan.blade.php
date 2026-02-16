@@ -33,10 +33,15 @@
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-blue-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                                    Status Pembayaran 
+                                </th>
+                                <th
+                                    class="px-5 py-3 border-b-2 border-gray-200 bg-blue-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Aksi
                                 </th>
                             </tr>
                         </thead>
+                      
                         <tbody>
                             @forelse($detail_pesanan as $pesanan)
                                 <tr class="hover:bg-blue-50 transition duration-150 ease-in-out">
@@ -62,11 +67,17 @@
                                         </p>
                                     </td>
                                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                                        <p class="text-gray-900 whitespace-no-wrap font-bold text-green-600">
+                                             {{ $pesanan->status }}
+                                        </p>
+                                    </td>
+                                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                         <button
                                             class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded btn-detail focus:outline-none focus:shadow-outline transform hover:scale-105 transition duration-150 ease-in-out"
                                             data-pesanan="{{ json_encode($pesanan) }}"
                                             data-details="{{ json_encode($pesanan->detail_pesanan) }}"
                                             data-pelanggan="{{ json_encode($pesanan->pelanggan) }}">
+
                                             Detail
                                         </button>
                                     </td>
@@ -142,14 +153,17 @@
                                                     Harga</th>
                                                 <th
                                                     class="border border-gray-200 px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                    Jml</th>
+                                                    Jumlah</th>
+                                                <th
+                                                    class="border border-gray-200 px-4 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Ukuran</th>
                                                 <th
                                                     class="border border-gray-200 px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                                     Subtotal</th>
                                             </tr>
                                         </thead>
                                         <tbody id="modalOrderDetails" class="bg-white divide-y divide-gray-200">
-                                            <!-- Details injected via JS -->
+                                            <!-- Detail diambil dari API JS  -->
                                         </tbody>
                                         <tfoot>
                                             <tr class="bg-gray-50 font-bold">
@@ -243,6 +257,7 @@
                                 </td>
                                 <td class="border border-gray-200 px-4 py-2 text-sm text-gray-700 text-right">Rp ${Number(item.harga_saat_ini).toLocaleString('id-ID')}</td>
                                 <td class="border border-gray-200 px-4 py-2 text-sm text-gray-700 text-center">${item.jumlah_pesanan}</td>
+                                <td class="border border-gray-200 px-4 py-2 text-sm text-gray-700 text-center">${item.variasi_kue.ukuran_kue}</td>
                                 <td class="border border-gray-200 px-4 py-2 text-sm text-gray-700 text-right font-medium">Rp ${Number(subtotal).toLocaleString('id-ID')}</td>
                             </tr>
                         `;

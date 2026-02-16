@@ -28,7 +28,7 @@ class pesananController extends Controller
         $keranjang = Keranjang::with(['variasi_kue_keranjang.kue', 'topping', 'rasa'])
             ->where("ID_PELANGGAN", "=", $user)
             ->get();
-        
+
         // Calculate grand total
         $grandTotal = $keranjang->sum(function ($item) {
             $basePrice = $item->variasi_kue_keranjang->harga_kue;
@@ -50,9 +50,8 @@ class pesananController extends Controller
             'kode_pos' => 'required|string|max:10',
             'catatan' => 'nullable|string',
         ]);
-
         $user = auth()->guard("pelanggan")->user();
-      
+
         $idPelanggan = $user->ID_PELANGGAN;
 
         // Ambil item di keranjang 
@@ -62,9 +61,9 @@ class pesananController extends Controller
         if ($keranjang->isEmpty()) {
             return redirect()->route('Keranjang')->withErrors(['error' => 'Keranjang kosong']);
         }
-        
+
         DB::beginTransaction();
-       
+
         try {
             // Generate nomor order sesuai yang udah dibuat di Model
             $noPesanan = Pesanan::generateOrderNumber();
@@ -75,7 +74,7 @@ class pesananController extends Controller
                 $toppingPrice = $item->topping->sum('biaya_tambahan'); //jumlah semua topping tambahan jika ada 
                 return ($basePrice + $toppingPrice) * $item->qty; //totalharga = harga awal + harga topping
             });
-           
+
 
             // Buat order pesanan, disini masih error
             $pesanan = Pesanan::create([
@@ -89,21 +88,22 @@ class pesananController extends Controller
                 'total_harga' => $totalHarga,
                 'catatan' => $validated['catatan'],
             ]);
-        
+
             // Buat detail order dari masing masing yg dibeli 
             foreach ($keranjang as $item) {
                 $basePrice = $item->variasi_kue_keranjang->harga_kue;
                 $toppingPrice = $item->topping->sum('biaya_tambahan');
                 $hargaSaatIni = $basePrice + $toppingPrice;
-                // Create detail pesanan
+                // Buat detail pesanan
+
                 DetailPesanan::create([
                     'NO_PESANAN' => $noPesanan,
                     'KD_VARIASI' => $item->KD_VARIASI,
                     'jumlah_pesanan' => $item->qty,
                     'harga_saat_ini' => $hargaSaatIni,
                 ]);
-                  
-                // Save selected toppings to pivot table
+
+                // Save topping jika lebih dari 0 
                 if ($item->topping->count() > 0) {
                     foreach ($item->topping as $topping) {
                         DB::table('detail_pesanan_topping')->insert([
@@ -114,7 +114,7 @@ class pesananController extends Controller
                     }
                 }
 
-                // Save selected rasa to pivot table
+                // Save rasa jika lebih dari 0
                 if ($item->rasa->count() > 0) {
                     foreach ($item->rasa as $rasa) {
                         DB::table('detail_pesanan_rasa')->insert([
@@ -124,7 +124,9 @@ class pesananController extends Controller
                         ]);
                     }
                 }
+            
             }
+          
 
             // Prepare Midtrans transaction details
             $transactionDetails = [
@@ -140,7 +142,7 @@ class pesananController extends Controller
                 $itemPrice = $basePrice + $toppingPrice;
 
                 $itemName = $item->variasi_kue_keranjang->kue->nama_kue . ' (' . $item->variasi_kue_keranjang->ukuran_kue . ')';
-                
+
                 if ($item->topping->count() > 0) {
                     $toppingNames = $item->topping->pluck('nama_topping')->implode(', ');
                     $itemName .= ' + ' . $toppingNames;
@@ -171,7 +173,7 @@ class pesananController extends Controller
                 'item_details' => $itemDetails,
                 'customer_details' => $customerDetails,
             ];
-     
+
 
             // Get Snap token
             $snapToken = Snap::getSnapToken($params);
@@ -183,7 +185,6 @@ class pesananController extends Controller
 
             // Return view with snap token
             return view('pelanggan.Layouts.payment', compact('snapToken', 'pesanan'));
-
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
@@ -228,7 +229,6 @@ class pesananController extends Controller
             $pesanan->save();
 
             return response()->json(['message' => 'Callback processed successfully']);
-
         } catch (\Exception $e) {
             return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
         }
